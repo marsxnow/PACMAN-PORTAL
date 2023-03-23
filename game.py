@@ -1,4 +1,5 @@
 import pygame as pg
+from map import Map
 
 class Game:
     WIDTH = 800
@@ -8,6 +9,7 @@ class Game:
         self.BG_COLOR = (0, 0, 0)   
         self.screen = pg.display.set_mode((Game.WIDTH, Game.HEIGHT))
         pg.display.set_caption('Pac-Man')            
+        self.map = Map('images/maze.png', (0, 60))
 
 
 def main():
