@@ -11,6 +11,9 @@ class Game:
         pg.display.set_caption('Pac-Man')            
         self.map = Map('images/maze.png', (0, 60))
 
+    def play(self):
+        self.screen.fill(self.BG_COLOR)
+        self.screen.blit(self.map.image, self.map.rect)
 
 def main():
     game = Game()
