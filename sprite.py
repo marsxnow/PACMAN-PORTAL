@@ -21,5 +21,6 @@ class Char(ABC):
     @abstractmethod
     def move(self, direction):
         pass
+    
     def draw(self, indic):
         self.screen.blit(self.images[indic[self.game.img_index.frame_index()]], self.rect)
