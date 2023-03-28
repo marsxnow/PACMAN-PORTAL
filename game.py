@@ -14,6 +14,12 @@ class Game:
     def play(self):
         self.screen.fill(self.BG_COLOR)
         self.screen.blit(self.map.image, self.map.rect)
+        pg.display.update()
+
+    def update(self):
+        self.screen.fill(self.BG_COLOR)
+        self.screen.blit(self.map.image, self.map.rect)
+
 
 def main():
     game = Game()
