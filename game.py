@@ -2,8 +2,12 @@ import pygame as pg
 from map import Map
 
 class Game:
-    WIDTH = 800
-    HEIGHT = 800
+    WIDTH = 450
+    HEIGHT = 600
+
+    #add high score file
+    #HS_File = ''
+
     def __init__(self):
         pg.init()
         self.BG_COLOR = (0, 0, 0)   

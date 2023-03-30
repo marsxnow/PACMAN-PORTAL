@@ -3,6 +3,7 @@ import pygame as pg
 class Spritesheet:
     def __init__(self, filename):
         self.spritesheet = pg.image.load(filename)
+        pass
     
     def get_image(self, x, y, w, h):
         image_rect = pg.Rect(x, y, w, h)

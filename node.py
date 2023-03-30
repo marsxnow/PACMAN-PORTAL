@@ -2,8 +2,8 @@ import pygame as pg
 from pygame.sprite import Sprite
 
 class Node(Sprite):
-    def __init__(self, game, x, y, adj=None, adjw=[]):
-        super().__init__()
+    def __init__(self, game, images, x, y, adj=None, adjw=[]):
+        super().__init__(game=game, images=images)
         self.screen = game.screen
         self.x, self.y = x, y
         self.adj = adj
