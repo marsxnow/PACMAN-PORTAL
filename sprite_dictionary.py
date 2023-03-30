@@ -18,7 +18,11 @@ class SpriteDict:
         #check if sprite correct
         self.pac_life = self.sprite_sheet.get_image(x=(24 *2), y=(24*3), w=24,h=23)
 
-    def get_pacman_sprites(self): pass
+    def get_pacman_sprites(self):
+        pacman_sprite = [self.sprite_sheet.get_image(x = 0, y = )]
+
+    
+        return pacman_sprite
     def get_pacman_dying_sprites(self): pass
 
     def get_blinky_sprites(self):pass
