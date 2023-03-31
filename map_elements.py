@@ -155,3 +155,339 @@ class Elements:
 
 
         self.nodes.append(Node(self, x=225, y=188, adj=[23, 24]))
+
+    def initialize_adj(self):
+        for node in self.nodes:
+            adj_index = 0
+            for adj_node_index in node.adj:
+                if node.x == self.nodes[adj_node_index].x:
+                    weight = abs(self.nodes[adj_node_index].y - node.y)
+                    node.adjw.append(weight)
+                elif node.y == self.nodes[adj_node_index].y:
+                    weight = abs(self.nodes[adj_node_index].x - node.x)
+                    node.adjw.append(weight)
+                adj_index += 1
+
+    def initialize_super_nodes(self):
+        self.super_nodes.append(Node(self, x=225, y=188, adj=[22, 24], adjw=[25, 25]))
+    
+
+    def initialize_pellets(self):
+        # horizontal  pellets being created                                    
+        self.pellets.append(Node(self, x=22, y=24))  
+
+        self.pellets.append(Node(self, x=42, y=24))
+        self.pellets.append(Node(self, x=62, y=24))
+        self.pellets.append(Node(self, x=82, y=24))
+
+        self.pellets.append(Node(self, x=105, y=24))  
+
+        self.pellets.append(Node(self, x=125, y=24))
+        self.pellets.append(Node(self, x=145, y=24))
+        self.pellets.append(Node(self, x=165, y=24))
+        self.pellets.append(Node(self, x=185, y=24))
+
+        self.pellets.append(Node(self, x=200, y=24))  
+        self.pellets.append(Node(self, x=250, y=24))  
+
+        self.pellets.append(Node(self, x=270, y=24))
+        self.pellets.append(Node(self, x=290, y=24))
+        self.pellets.append(Node(self, x=310, y=24))
+        self.pellets.append(Node(self, x=330, y=24))
+
+        self.pellets.append(Node(self, x=348, y=24))  
+
+        self.pellets.append(Node(self, x=368, y=24))
+        self.pellets.append(Node(self, x=388, y=24))
+        self.pellets.append(Node(self, x=408, y=24))
+
+        self.pellets.append(Node(self, x=426, y=24))  
+
+        self.pellets.append(Node(self, x=22, y=89))  
+
+        self.pellets.append(Node(self, x=42, y=89))
+        self.pellets.append(Node(self, x=62, y=89))
+        self.pellets.append(Node(self, x=82, y=89))
+
+        self.pellets.append(Node(self, x=105, y=89))  
+
+        self.pellets.append(Node(self, x=125, y=89))
+
+        self.pellets.append(Node(self, x=153, y=89))  
+
+        self.pellets.append(Node(self, x=173, y=89))
+
+        self.pellets.append(Node(self, x=200, y=89))  
+
+        self.pellets.append(Node(self, x=220, y=89))
+
+        self.pellets.append(Node(self, x=250, y=89))  
+
+        self.pellets.append(Node(self, x=270, y=89))
+
+        self.pellets.append(Node(self, x=298, y=89))  
+
+        self.pellets.append(Node(self, x=318, y=89))
+
+        self.pellets.append(Node(self, x=348, y=89))  
+
+        self.pellets.append(Node(self, x=368, y=89))
+        self.pellets.append(Node(self, x=388, y=89))
+        self.pellets.append(Node(self, x=408, y=89))
+
+        self.pellets.append(Node(self, x=426, y=89))  
+
+        self.pellets.append(Node(self, x=22, y=138))  
+        self.pellets.append(Node(self, x=42, y=138))
+        self.pellets.append(Node(self, x=62, y=138))
+        self.pellets.append(Node(self, x=82, y=138))
+
+        self.pellets.append(Node(self, x=105, y=138)) 
+        self.pellets.append(Node(self, x=153, y=138))  
+
+        self.pellets.append(Node(self, x=173, y=138))
+
+        self.pellets.append(Node(self, x=200, y=138))  
+        self.pellets.append(Node(self, x=250, y=138))  
+
+        self.pellets.append(Node(self, x=270, y=138))
+
+        self.pellets.append(Node(self, x=298, y=138))  
+        self.pellets.append(Node(self, x=348, y=138))  
+
+        self.pellets.append(Node(self, x=368, y=138))
+        self.pellets.append(Node(self, x=388, y=138))
+        self.pellets.append(Node(self, x=408, y=138))
+
+        self.pellets.append(Node(self, x=426, y=138))  # [21]
+
+        self.pellets.append(Node(self, x=153, y=188))  # [22]
+
+        self.pellets.append(Node(self, x=173, y=188))
+
+        self.pellets.append(Node(self, x=200, y=188))  # [23]
+
+        self.pellets.append(Node(self, x=220, y=188))
+
+        self.pellets.append(Node(self, x=250, y=188))  # [24]
+
+        self.pellets.append(Node(self, x=270, y=188))
+
+        self.pellets.append(Node(self, x=298, y=188))  # [25]
+
+        self.pellets.append(Node(self, x=105, y=235))  # [26]
+
+        self.pellets.append(Node(self, x=125, y=235))
+
+        self.pellets.append(Node(self, x=153, y=235))  # [27]
+        self.pellets.append(Node(self, x=298, y=235))  # [28]
+
+        self.pellets.append(Node(self, x=318, y=235))
+
+        self.pellets.append(Node(self, x=348, y=235))  # [29]
+
+        self.pellets.append(Node(self, x=153, y=283))  # [30]
+
+        self.pellets.append(Node(self, x=173, y=283))
+        self.pellets.append(Node(self, x=193, y=283))
+        self.pellets.append(Node(self, x=213, y=283))
+        self.pellets.append(Node(self, x=233, y=283))
+        self.pellets.append(Node(self, x=253, y=283))
+        self.pellets.append(Node(self, x=273, y=283))
+
+        self.pellets.append(Node(self, x=298, y=283))  # [31]
+
+        self.pellets.append(Node(self, x=22, y=334))  # [32]
+
+        self.pellets.append(Node(self, x=42, y=334))
+        self.pellets.append(Node(self, x=62, y=334))
+        self.pellets.append(Node(self, x=82, y=334))
+
+        self.pellets.append(Node(self, x=105, y=334))  # [33]
+
+        self.pellets.append(Node(self, x=125, y=334))
+
+        self.pellets.append(Node(self, x=153, y=334))  # [34]
+
+        self.pellets.append(Node(self, x=173, y=334))
+
+        self.pellets.append(Node(self, x=200, y=334))  # [35]
+        self.pellets.append(Node(self, x=250, y=334))  # [36]
+
+        self.pellets.append(Node(self, x=270, y=334))
+
+        self.pellets.append(Node(self, x=298, y=334))  # [37]
+
+        self.pellets.append(Node(self, x=318, y=334))
+
+        self.pellets.append(Node(self, x=348, y=334))  # [38]
+
+        self.pellets.append(Node(self, x=368, y=334))
+        self.pellets.append(Node(self, x=388, y=334))
+        self.pellets.append(Node(self, x=408, y=334))
+
+        self.pellets.append(Node(self, x=426, y=334))  # [39]
+
+        self.pellets.append(Node(self, x=22, y=381))  # [40]
+        self.pellets.append(Node(self, x=56, y=381))  # [41]
+        self.pellets.append(Node(self, x=105, y=381))  # [42]
+
+        self.pellets.append(Node(self, x=125, y=381))
+
+        self.pellets.append(Node(self, x=153, y=381))  # [43]
+
+        self.pellets.append(Node(self, x=173, y=381))
+
+        self.pellets.append(Node(self, x=200, y=381))  # [44]
+
+        # self.pellets.append(Node(self, x=220, y=381))         # REMOVE -- Pacman starting location
+
+        self.pellets.append(Node(self, x=250, y=381))  # [45]
+
+        self.pellets.append(Node(self, x=270, y=381))
+
+        self.pellets.append(Node(self, x=298, y=381))  # [46]
+
+        self.pellets.append(Node(self, x=318, y=381))
+
+        self.pellets.append(Node(self, x=348, y=381))  # [47]
+        self.pellets.append(Node(self, x=395, y=381))  # [48]
+        self.pellets.append(Node(self, x=426, y=381))  # [49]
+
+        self.pellets.append(Node(self, x=22, y=430))  # [50]
+        self.pellets.append(Node(self, x=56, y=430))  # [51]
+
+        self.pellets.append(Node(self, x=76, y=430))
+
+        self.pellets.append(Node(self, x=105, y=430))  # [52]
+        self.pellets.append(Node(self, x=153, y=430))  # [53]
+
+        self.pellets.append(Node(self, x=173, y=430))
+
+        self.pellets.append(Node(self, x=200, y=430))  # [54]
+        self.pellets.append(Node(self, x=250, y=430))  # [55]
+
+        self.pellets.append(Node(self, x=270, y=430))
+
+        self.pellets.append(Node(self, x=298, y=430))  # [56]
+        self.pellets.append(Node(self, x=348, y=430))  # [57]
+
+        self.pellets.append(Node(self, x=368, y=430))
+
+        self.pellets.append(Node(self, x=395, y=430))  # [58]
+        self.pellets.append(Node(self, x=426, y=430))  # [59]
+
+        self.pellets.append(Node(self, x=22, y=478))  # [60]
+
+        self.pellets.append(Node(self, x=42, y=478))
+        self.pellets.append(Node(self, x=62, y=478))
+        self.pellets.append(Node(self, x=82, y=478))
+        self.pellets.append(Node(self, x=102, y=478))
+        self.pellets.append(Node(self, x=122, y=478))
+        self.pellets.append(Node(self, x=142, y=478))
+        self.pellets.append(Node(self, x=162, y=478))
+        self.pellets.append(Node(self, x=182, y=478))
+
+        self.pellets.append(Node(self, x=200, y=478))  # [61]
+
+        self.pellets.append(Node(self, x=224, y=478))
+
+        self.pellets.append(Node(self, x=250, y=478))  # [62]
+
+        self.pellets.append(Node(self, x=270, y=478))
+        self.pellets.append(Node(self, x=290, y=478))
+        self.pellets.append(Node(self, x=310, y=478))
+        self.pellets.append(Node(self, x=330, y=478))
+        self.pellets.append(Node(self, x=350, y=478))
+        self.pellets.append(Node(self, x=370, y=478))
+        self.pellets.append(Node(self, x=395, y=478))
+
+        self.pellets.append(Node(self, x=426, y=478))  # [63]
+
+        # vertical pellets
+        self.pellets.append(Node(self, x=22, y=109))
+        self.pellets.append(Node(self, x=105, y=44))
+        self.pellets.append(Node(self, x=105, y=64))
+        self.pellets.append(Node(self, x=105, y=109))
+        self.pellets.append(Node(self, x=105, y=158))
+        self.pellets.append(Node(self, x=105, y=178))
+        self.pellets.append(Node(self, x=105, y=198))
+        self.pellets.append(Node(self, x=105, y=218))
+        self.pellets.append(Node(self, x=105, y=255))
+        self.pellets.append(Node(self, x=105, y=275))
+        self.pellets.append(Node(self, x=105, y=295))
+        self.pellets.append(Node(self, x=105, y=315))
+        self.pellets.append(Node(self, x=105, y=354))
+        self.pellets.append(Node(self, x=105, y=401))
+        self.pellets.append(Node(self, x=200, y=44))
+        self.pellets.append(Node(self, x=200, y=64))
+        self.pellets.append(Node(self, x=250, y=44))
+        self.pellets.append(Node(self, x=250, y=64))
+        self.pellets.append(Node(self, x=348, y=44))
+        self.pellets.append(Node(self, x=348, y=64))
+        self.pellets.append(Node(self, x=348, y=109))
+        self.pellets.append(Node(self, x=348, y=158))
+        self.pellets.append(Node(self, x=348, y=178))
+        self.pellets.append(Node(self, x=348, y=198))
+        self.pellets.append(Node(self, x=348, y=218))
+        self.pellets.append(Node(self, x=348, y=255))
+        self.pellets.append(Node(self, x=348, y=275))
+        self.pellets.append(Node(self, x=348, y=295))
+        self.pellets.append(Node(self, x=348, y=315))
+        self.pellets.append(Node(self, x=348, y=354))
+        self.pellets.append(Node(self, x=348, y=401))
+        self.pellets.append(Node(self, x=426, y=109))
+        self.pellets.append(Node(self, x=153, y=109))
+        self.pellets.append(Node(self, x=298, y=109))
+        self.pellets.append(Node(self, x=200, y=158))
+        self.pellets.append(Node(self, x=250, y=158))
+        self.pellets.append(Node(self, x=153, y=208))
+        self.pellets.append(Node(self, x=153, y=255))
+        self.pellets.append(Node(self, x=153, y=303))
+        self.pellets.append(Node(self, x=298, y=208))
+        self.pellets.append(Node(self, x=298, y=255))
+        self.pellets.append(Node(self, x=298, y=303))
+        self.pellets.append(Node(self, x=200, y=354))
+        self.pellets.append(Node(self, x=250, y=354))
+        self.pellets.append(Node(self, x=56, y=401))
+        self.pellets.append(Node(self, x=153, y=401))
+        self.pellets.append(Node(self, x=298, y=401))
+        self.pellets.append(Node(self, x=395, y=401))
+        self.pellets.append(Node(self, x=22, y=450))
+        self.pellets.append(Node(self, x=200, y=450))
+        self.pellets.append(Node(self, x=250, y=450))
+        self.pellets.append(Node(self, x=426, y=450))
+
+    def initialize_pow_pellets(self):
+        self.pow_pellets.append(Node(self, x=22, y=54))
+        self.pow_pellets.append(Node(self, x=22, y=354))
+        self.pow_pellets.append(Node(self, x=426, y=354))
+        self.pow_pellets.append(Node(self, x=426, y=54))
+    
+    def initialize_ghost_nodes(self):
+        self.ghost_nodes.append(Node(self, x=198, y=237, adj=[67]))       
+        self.ghost_nodes.append(Node(self, x=225, y=237, adj=[66, 68, 69]))   
+        self.ghost_nodes.append(Node(self, x=252, y=237, adj=[67]))      
+        self.ghost_nodes.append(Node(self, x=225, y=190, adj=[23, 24, 67]))
+
+    def directions(self, start, end):
+        found = False
+
+        for adj_index in start.adj:
+            if self.nodes.index(end) == adj_index:
+                found = True
+        
+        if found:
+            if start.x > end.x and start.y == end.y:
+                direction = 'left'
+            elif start.x < end.x and start.y == end.y:
+                direction = 'right'
+            elif start.y < end.y and start.x == end.x:
+                direction = 'down'
+            elif start.y > end.y and start.x == end.x:
+                direction = 'up'
+        else:
+            return False
+        
+        return direction
+
