@@ -41,21 +41,21 @@ class Timer:
     
     class DualTimer:
         def __init__(self, frames1, frames2, wait1=100, wait2=100, wait_switch_timers=1000,
-                 frameindex1=0, frameindex2=0, step1=1, step2=1, looponce=False):
+                 frameindex1=0, frameindex2=0, step1=1, step2=1, loop=False):
 
             self.wait_switch_timers = wait_switch_timers
-            self.timer1 = Timer(frames1, wait1, frameindex1, step1, looponce)
-            self.timer2 = Timer(frames2, wait2, frameindex2, step2, looponce)
+            self.timer1 = Timer(frames1, wait1, frameindex1, step1, loop)
+            self.timer2 = Timer(frames2, wait2, frameindex2, step2, loop)
             self.timer = self.timer1   
 
-            self.now = pg.time.get_ticks()
+            self.current = pg.time.get_ticks()
             self.lastswitch = self.now
 
         def frame_index(self):
-            now = pg.time.get_ticks()
-            if now - self.lastswitch > self.wait_switch_timers:
+            current = pg.time.get_ticks()
+            if current - self.lastswitch > self.wait_switch_timers:
                 self.timer = self.timer2 if self.timer == self.timer1 else self.timer1
-                self.lastswitch = now
+                self.lastswitch = current
             return self.timer.frame_index()
 
         def reset(self):
@@ -63,8 +63,8 @@ class Timer:
             self.timer2.reset()
             self.timer = self.timer1
 
-        def __str__(self): return 'TimerDual(' + str(self.timer1) + ',' + str(self.timer2) + ')'
+        def __str__(self): return 'DualTimer(' + str(self.timer1) + ',' + str(self.timer2) + ')'
 
         def imagerect(self):
-            idx = self.frame_index()
-            return self.timer.frames[idx]
+            dualTimerImg = self.frame_index()
+            return self.timer.frames[dualTimerImg]
