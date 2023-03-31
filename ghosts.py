@@ -1,7 +1,7 @@
 from sprite import Char
 from sprite_dictionary import SpriteDict
 
-class Ghost():
+class Ghost(Char):
 
     def __init__(self, game, images, graph):
 
