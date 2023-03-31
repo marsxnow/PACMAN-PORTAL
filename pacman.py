@@ -67,3 +67,77 @@ class Pacman(Char):
         for image in dying_images:
             temp = pg.transform.rotate(image, 270)
             self.dying_right.append(temp)
+
+    
+    def update(self):
+
+        self.elapsed_00 = pg.time.get_ticks() - self.elapsed_00
+        if self.elapsed_00 > 200:  # animate every 1/2 second
+            self.handle_animation()
+
+        self.elapsed_01 = pg.time.get_ticks() - self.elapsed_01
+
+        if not self.get_enemy_collision():
+            self.handle_animation()
+            self.calculate_player_movement()
+            self.eat()
+            self.manage_op()
+        else:
+            self.die()
+            self.game.has_game_started = False
+        self.print_scores()
+
+          
+    def die(self):
+        self.game.has_game_started = False
+
+        #Death sound
+        self.game.voice.play(self.game.death_sound)
+        last_change = pg.time.get_ticks()
+        time_elapsed = abs(last_change - pg.time.get_ticks())
+        self.finished = False
+
+        # change frame every 145 ms
+        while not self.finished:     # stall for duration of RIP sound, keep updating screen
+            if time_elapsed > 75:
+                self.dying_index += 1
+                last_change = pg.time.get_ticks()
+
+            self.game.process_events()  # Get user input
+            self.game.update()  # Update this (Game) instance
+
+            self.graph.update() 
+
+            self.draw_death()
+            self.game.ui_update()
+            for ghost in self.game.ghosts:
+                ghost.update()
+
+            pg.display.update()  # Tell game engine to update this games display
+
+            time_elapsed = abs(last_change - pg.time.get_ticks())
+
+        start = pg.time.get_ticks()
+        time_elapsed = abs(start - pg.time.get_ticks())
+
+        while time_elapsed < 2000:      # stall for 2 seconds
+            self.game.process_events()  # Get user input
+            self.game.update()  # Update this (Game) instance
+
+            self.graph.update()  
+
+            self.game.ui_update()
+            for ghost in self.game.enemies:  # Update (Enemy) instances
+                ghost.update()
+
+            pg.display.update()
+
+            time_elapsed = abs(start - pg.time.get_ticks())
+
+        self.game.new_life = True
+        print('new life, lives left: ' + str(self.lives))
+
+        if self.lives <= 0:
+            self.game.game_over = True
+            print ('game 0ver')
+
