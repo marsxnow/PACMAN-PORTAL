@@ -491,3 +491,17 @@ class Elements:
         
         return direction
 
+    def valid_move(self, node, direction):
+        found = False
+
+        current_node = node
+
+        for adj_node in current_node.adj:
+            if direction == 'left' and self.nodes[adj_node].x < current_node.x and self.nodes[adj_node].y == current_node.y\
+            or direction == 'right' and self.nodes[adj_node].x > current_node.x and self.nodes[adj_node].y == current_node.y\
+            or direction == 'up' and self.nodes[adj_node].y < current_node.y and self.nodes[adj_node].x == current_node.x\
+            or direction == 'down' and self.nodes[adj_node].y > current_node.y and self.nodes[adj_node].x == current_node.x:
+                current_node = self.nodes[adj_node]
+                found = True
+
+        return found
