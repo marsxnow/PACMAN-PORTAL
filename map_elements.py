@@ -505,3 +505,49 @@ class Elements:
                 found = True
 
         return found
+
+
+    def adj_path(self, node, direction):
+        done = False
+        found = False
+
+        current = node
+        matching_nodes = []
+
+        while not done:
+            for adj_node in current.adj:
+                if direction == 'left' and self.nodes[adj_node].x < current.x and self.nodes[adj_node].y == current.y\
+                or direction == 'right' and self.nodes[adj_node].x > current.x and self.nodes[adj_node].y == current.y\
+                or direction == 'up' and self.nodes[adj_node].y < current.y and self.nodes[adj_node].x == current.x\
+                or direction == 'down' and self.nodes[adj_node].y > current.y and self.nodes[adj_node].x == current.x:
+
+                    current = self.nodes[adj_node]
+                    matching_nodes.append(current)
+                    found = True
+
+            if not found:
+                done = True    # Cant go any further
+            else:
+                found = False  # Reset
+
+        return matching_nodes
+
+    def get_buffer(self, char, direction):
+        buffer = 10
+        buffers = []
+
+        if direction == 'left':
+            buffers.append(char.adj_node.x - buffer)
+            buffers.append(char.adj_node.y)
+        elif direction == 'right':
+            buffers.append(char.adj_node.x + buffer)
+            buffers.append(char.adj_node.y)
+        elif direction == 'up':
+            buffers.append(char.adj_node.x)
+            buffers.append(char.adj_node.y - buffer)
+        elif direction == 'down':
+            buffers.append(char.adj_node.x)
+            buffers.append(char.adj_node.y + buffer)
+
+        return buffers
+
