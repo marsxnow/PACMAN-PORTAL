@@ -96,6 +96,51 @@ class Game:
         self.cherry_img = self.sprite_dictionary.fruits[0]
         self.sound_img = pg.image.load()
 
+        self.load_HS()
+
+        pg.mixer.init()
+
+        pacman_imgs = self.sprite_dictionary.get_pacman_sprites()
+        self.starter_pac = []
+        for img in pacman_imgs:
+            self.starter_pac.append(pg.transform.scale(img, (48, 48)))
+        self.starter_pac_rect = self.starter_pac[0].get_rect()
+        self.starter_pac_rect.centerx = -48
+        self.starter_pac_rect.centery = 430
+
+        blinky_imgs = self.sprite_dictionary.get_blinky_sprites()
+        self.starter_blinky = []
+        for img in blinky_imgs:
+            self.starter_blinky.append(pg.transform.scale(img, (48, 48)))
+        self.starter_blinky_rect = self.starter_blinky[0].get_rect()
+        self.starter_blinky_rect.centerx = -144
+        self.starter_blinky_rect.centery = 430
+
+        pinky_imgs = self.sprite_dictionary.get_pinky_sprites()
+        self.starter_pinky = []
+        for img in pinky_imgs:
+            self.starter_pinky.append(pg.transform.scale(img, (48, 48)))
+        self.starter_pinky_rect = self.starter_pinky[0].get_rect()
+        self.starter_pinky_rect.centerx = -199
+        self.starter_pinky_rect.centery = 430            
+        
+
+        clyde_imgs = self.sprite_dictionary.get_clyde_sprites()
+        self.starter_clyde = []
+        for img in clyde_imgs:
+            self.starter_clyde.append(pg.transform.scale(img, (48, 48)))
+        self.starter_clyde_rect = self.starter_clyde[0].get_rect()
+        self.starter_clyde_rect.centerx = -254
+        self.starter_clyde_rect.centery = 430            
+
+
+
+
+
+
+
+
+
 
     def play(self):
         self.screen.fill(self.BG_COLOR)
