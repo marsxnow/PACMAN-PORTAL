@@ -4,7 +4,7 @@ import pygame as pg
 class SpriteDict:
     def __init__(self):
 
-        self.sprite_sheet = Spritesheet('image/spritesheet.png')
+        self.sprite_sheet = Spritesheet('images/spritesheet.png')
 
         self.pacman = self.get_pacman_sprites()
         self.blinky = self.get_blinky_sprites()
@@ -13,7 +13,7 @@ class SpriteDict:
         self.clyde = self.get_clyde_sprites()
 
         self.portal = self.get_unscaled_portal_sprites()
-        self.fruits = self.get_fruits_sprites()
+        self.fruits = self.get_food_sprites()
 
         #check if sprite correct
         self.pac_life = self.sprite_sheet.get_image(x=48, y=72, w=24,h=23)

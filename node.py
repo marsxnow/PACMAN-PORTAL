@@ -2,14 +2,14 @@ import pygame as pg
 from pygame.sprite import Sprite
 
 class Node(Sprite):
-    def __init__(self, game, images, x, y, adj=None, adjw=[]):
-        super().__init__(game=game, images=images)
+    def __init__(self, game,  x, y, adj=None, adjw=[]):
+        super().__init__()
         self.screen = game.screen
-        self.x, self.y = x, y
+        self.x, self.y = x, y + 60
         self.adj = adj
         self.adjw = adjw
         self.rect = pg.Rect(self.x, self.y, 1, 1)
-        self.game = self.game
+        self.game = game
 
         self.exists = True
     

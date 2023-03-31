@@ -39,32 +39,32 @@ class Timer:
     def image_rect(self):
         return self.frames[self.frame_index()]
     
-    class DualTimer:
-        def __init__(self, frames1, frames2, wait1=100, wait2=100, wait_switch_timers=1000,
-                 frameindex1=0, frameindex2=0, step1=1, step2=1, loop=False):
+class DualTimer:
+    def __init__(self, frames1, frames2, wait1=100, wait2=100, wait_switch_timers=1000,
+                frameindex1=0, frameindex2=0, step1=1, step2=1, loop=False):
 
-            self.wait_switch_timers = wait_switch_timers
-            self.timer1 = Timer(frames1, wait1, frameindex1, step1, loop)
-            self.timer2 = Timer(frames2, wait2, frameindex2, step2, loop)
-            self.timer = self.timer1   
+        self.wait_switch_timers = wait_switch_timers
+        self.timer1 = Timer(frames1, wait1, frameindex1, step1, loop)
+        self.timer2 = Timer(frames2, wait2, frameindex2, step2, loop)
+        self.timer = self.timer1   
 
-            self.current = pg.time.get_ticks()
-            self.lastswitch = self.now
+        self.current = pg.time.get_ticks()
+        self.lastswitch = self.current
 
-        def frame_index(self):
-            current = pg.time.get_ticks()
-            if current - self.lastswitch > self.wait_switch_timers:
-                self.timer = self.timer2 if self.timer == self.timer1 else self.timer1
-                self.lastswitch = current
-            return self.timer.frame_index()
+    def frame_index(self):
+        current = pg.time.get_ticks()
+        if current - self.lastswitch > self.wait_switch_timers:
+            self.timer = self.timer2 if self.timer == self.timer1 else self.timer1
+            self.lastswitch = current
+        return self.timer.frame_index()
 
-        def reset(self):
-            self.timer1.reset()
-            self.timer2.reset()
-            self.timer = self.timer1
+    def reset(self):
+        self.timer1.reset()
+        self.timer2.reset()
+        self.timer = self.timer1
 
-        def __str__(self): return 'DualTimer(' + str(self.timer1) + ',' + str(self.timer2) + ')'
+    def __str__(self): return 'DualTimer(' + str(self.timer1) + ',' + str(self.timer2) + ')'
 
-        def imagerect(self):
-            dualTimerImg = self.frame_index()
-            return self.timer.frames[dualTimerImg]
+    def imagerect(self):
+        dualTimerImg = self.frame_index()
+        return self.timer.frames[dualTimerImg]
