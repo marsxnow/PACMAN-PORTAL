@@ -16,7 +16,7 @@ class Game:
     WIDTH = 450
     HEIGHT = 600
 
-    highscore = 'highscore.txt'
+    highscore_file = 'highscore.txt'
 
     def __init__(self):
         pg.init()
@@ -133,11 +133,32 @@ class Game:
         self.starter_clyde_rect.centerx = -254
         self.starter_clyde_rect.centery = 430            
 
+        inkey_imgs = self.sprite_dictionary.get_inky_sprites()
+        self.starter_inkey = []
+        for img in inkey_imgs:
+            self.starter_inkey.append(pg.transform.scale(img, (48, 48)))
+        self.starter_inkey_rect = self.starter_inkey[0].get_rect()
+        self.starter_inkey_rect.centerx = -309
+        self.starter_inkey_rect.centery = 430       
 
 
+        intro_runaway = self.sprite_dictionary.get_ghosts_running_away_sprites()
+        self.starter_runaway = []
+        for img in intro_runaway:
+            self.starter_runaway.append(pg.transform.scale(img, (48, 48)))
 
+        
 
+        self.starter_right = True
 
+    def load_high_score(self):
+        self.file = path.dirname(__file__)
+        with open(path.join(self.file, self.highscore_file), 'r') as f:
+            try:
+                self.high_score = int(f.read())
+            except:
+                self.high_score = 0
+        
 
 
 
