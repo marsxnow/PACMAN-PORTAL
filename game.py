@@ -467,12 +467,48 @@ class Game:
             pg.display.update()
             self.Clock.tick(15)
     
+    def handle_events(self):
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                sys.exit()
+            elif event.type == pg.MOUSEBUTTONDOWN and not self.start_game:
+                x, y = event.pos
+                if self.play_button_rect.collidepoint(x, y):
+                    self.start_screen = False
+                elif self.highscore_button_rect.collidepoint(x, y):
+                    self.play_button = False
+                    self.highscore_button = False
+                    self.show_highscore = True
+                    self.back_button = True
+                elif self.back_button_rect.collidepoint(x, y):
+                    self.play_button = True
+                    self.highscore_button = True
+                    self.show_highscore = False
+                    self.back_button = False
+            elif event.type == pg.KEYDOWN and self.start_game:
+                if event.key == pg.K_p:
+                    self.pause()
+                elif event.key == pg.K_LEFT:
+                    self.last_key = 'left'
+                elif event.key == pg.K_RIGHT:
+                    self.last_key = 'right'
+                elif event.key == pg.K_UP:
+                    self.last_key = 'up'
+                elif event.key == pg.K_DOWN:
+                    self.last_key = 'down'
+                # elif event.key == pg.K_z:
+                #     self.portal1.fire()
+                # elif event.key == pg.K_x:
+                #     self.portal2.fire()
+                
     
+
 
 
     def update(self):
         self.screen.fill(self.BG_COLOR)
         self.screen.blit(self.map.image, self.map.rect)
+
 
 
 
