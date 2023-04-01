@@ -13,7 +13,7 @@ class Pacman(Char):
 
         self.current_node = self.map_elem.nodes[65]
         self.next_node = self.map_elem.nodes[65]
-        self.adj_node = self.map_elem.node[45]
+        self.adj_node = self.map_elem.nodes[45]
 
         sprite_dict = SpriteDict()
         self.number_images = sprite_dict.get_numbers()
@@ -21,13 +21,13 @@ class Pacman(Char):
         self.number_duration = 3000
         self.number_start = pg.time.get_ticks()
         self._200_ = False
-        self.rect_200_ = copy.deepcopy(self.numbers_rect)
+        self.rect_200_ = copy.deepcopy(self.number_rect)
         self._400_ = False
-        self.rect_400_ = copy.deepcopy(self.numbers_rect)
+        self.rect_400_ = copy.deepcopy(self.number_rect)
         self._800_ = False
-        self.rect_800_ = copy.deepcopy(self.numbers_rect)
+        self.rect_800_ = copy.deepcopy(self.number_rect)
         self._1600_ = False
-        self.rect_1600_ = copy.deepcopy(self.numbers_rect)
+        self.rect_1600_ = copy.deepcopy(self.number_rect)
 
         self.port_cool_down = 1000
         self.last_tp = pg.time.get_ticks()
