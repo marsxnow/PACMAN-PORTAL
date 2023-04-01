@@ -151,7 +151,13 @@ class Game:
         for img in intro_runaway:
             self.starter_runaway.append(pg.transform.scale(img, (48, 48)))
 
-        
+        self.starter_ghosts = []
+        self.starter_ghosts.append([self.starter_blinky, self.starter_blinky_rect])
+        self.starter_ghosts.append([self.starter_pinky, self.starter_pinky_rect])
+        self.starter_ghosts.append([self.starter_clyde, self.starter_clyde_rect])
+        self.starter_ghosts.append([self.starter_inkey, self.starter_inkey_rect])
+
+
 
         self.starter_right = True
 
@@ -162,6 +168,45 @@ class Game:
                 self.high_score = int(f.read())
             except:
                 self.high_score = 0
+    
+    def display_pacman_intro(self):
+        pr_ind = (0, 3, 4)
+        pl_ind = (0, 1, 2)
+
+        running = (2, 3)
+        gr_ind = (0, 1)
+
+        if self.starter_pac_rect.right < -200:
+            self.starter_right = True
+            self.starter_pac_rect.centerx = -48
+            self.starter_blinky_rect = -144
+            self.starter_pinky_rect.centerx = -199
+            self.starter_clyde_rect.centerx = -254
+            self.starter_inkey_rect.centerx = -309
+        if self.starter_inkey_rect.left >= (self.WIDTH + 200):
+            self.starter_right = False      # go left because too far right
+            self.starter_inkey_rect.centerx = self.WIDTH + 48
+            self.starter_clyde_rect.centerx = self.WIDTH + 103
+            self.starter_pinky_rect.centerx = self.WIDTH + 158
+            self.starter_blinky_rect.centerx = self.WIDTH + 213
+            self.starter_pac_rect.centerx = self.WIDTH + 309
+
+        if self.starter_right:
+            self.screen.blit(self.starter_pac[pr_ind[self.pac_img.frame_index()]], self.starter_pac_rect)
+            for ghost in self.starter_ghosts:
+                self.screen.blit(ghost[0][gr_ind[self.ghost_img.frame_index()]], ghost[1])
+            self.starter_pac_rect.centerx += 2
+            for ghost in self.starter_ghosts:
+                ghost[1].centerx += 2
+        if not self.starter_right:
+            self.screen.blit(self.starter_pac[pl_ind[self.pac_img.frame_index()]], self.starter_pac_rect)
+            for ghost in self.starter_ghosts:
+                self.screen.blit(self.starter_runaway[running[self.ghost_img.frame_index()]],
+                                 ghost[1])
+            
+            self.starter_pac_rect.centerx -= 2
+            for ghost in self.starter_ghosts:
+                ghost[1].centerx -= 2
     
     def display_intro(self):
         intro = (0, 1)
@@ -174,8 +219,8 @@ class Game:
 
         blinky_text = font.render("Blinky", True, (255, 0, 0))
         btext_rect = blinky_text.get_rect()
-        btext_rect.centerx, btext_rect.centery = blinky_copy_rect.left - 50, blinky_copy_rect.centery
-
+        btext_rect.centerx = blinky_copy_rect.left - 50
+        btext_rect.centery = blinky_copy_rect.centery
         self.screen.blit(self.starter_blinky[intro[self.ghost_img.frame_index()]], blinky_copy_rect)
         self.screen.blit(blinky_text, btext_rect)
 
@@ -206,9 +251,9 @@ class Game:
 
         inkey_copy_rect = copy.deepcopy(self.starter_inkey_rect)
         inkey_copy_rect.centerx = 281
-        inkey_copy_rect.centery = 245
+        inkey_copy_rect.centery = 320
 
-        inkey_text = font.render("Inkey", True, (255, 0, 0))
+        inkey_text = font.render("Inkey", True, (0, 255, 255))
         itext_rect = inkey_text.get_rect()
         itext_rect.centerx, itext_rect.centery = inkey_copy_rect.right + 50, inkey_copy_rect.centery
 
@@ -247,6 +292,7 @@ class Game:
 
             self.screen.fill(self.BG_COLOR)
             self.display_intro()
+            self.display_pacman_intro()
             if self.show and self.play_button:
                 self.screen.blit(play_game, self.play_button_rect)
             if self.highscore_button:
