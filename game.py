@@ -373,7 +373,22 @@ class Game:
         elif self.pacman.lives == 2:
             self.screen.blit(self.pac_life_img, (10, self.HEIGHT - 28))
 
-    def reinitialize(self)
+    def reinitialize(self):
+        self.pacman = Pacman(self, self.sprite_dictionary.pacman, self.map_elems)
+        self.blinky = Ghost(self, self.sprite_dictionary.blinky, self.map_elems)
+        self.pinky = Ghost(self, self.sprite_dictionary.pinky, self.map_elems)
+        self.clyde = Ghost(self, self.sprite_dictionary.clyde, self.map_elems)
+        self.inkey = Ghost(self, self.sprite_dictionary.inkey, self.map_elems)
+        self.ghosts = []
+        self.ghosts.append(self.blinky, self.pinky, self.clyde, self.inkey)
+        
+        self.pacman.rect.centerx = self.map_elems.nodes[65].x
+        self.pacman.rect.centery = self.map_elems.nodes[65].y
+        self.pacman.adj_node = self.map_elems.nodes[65]
+
+        self.initialize_ghosts()
+
+    
 
     def update(self):
         self.screen.fill(self.BG_COLOR)
