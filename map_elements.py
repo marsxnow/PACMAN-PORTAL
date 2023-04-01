@@ -551,3 +551,32 @@ class Elements:
 
         return buffers
 
+    def init_path_elem(self, node_path_elem):
+        org_path_elem = node_path_elem
+        distance = 0
+
+        if node_path_elem.node is not node_path_elem.start_node:
+            while node_path_elem.nodes is not node_path_elem.start_node:
+                i = 0
+                found = False
+
+                for prev_node_idx in node_path_elem.previous_path.node.adj:
+
+                    if not found:
+                        if node_path_elem.previous_path.node.adj[i] == self.nodes.index(node_path_elem.node):
+                            distance += node_path_elem.previous_path.node.adjw[i]
+                            found = True
+                        else:
+                            i += 1
+                
+                temp_path_elem = node_path_elem
+                node_path_elem = node_path_elem.previous_path
+        
+        org_path_elem.distance_from_start = distance
+        org_path_elem.distance_to_goal = self.get_distance(org_path_elem ,org_path_elem.to_node)
+
+        if not self.nodes.index(org_path_elem.node) == self.nodes.index(org_path_elem.to_node):
+            org_path_elem.total_distance =  org_path_elem.distance_from_start + org_path_elem.distance_to_goal
+        else:
+            org_path_elem.total_distance = 0
+        return org_path_elem

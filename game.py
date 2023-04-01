@@ -48,7 +48,10 @@ class Game:
         self.clyde = Ghost(self, self.sprite_dictionary.clyde, self.map_elems)
         self.inkey = Ghost(self, self.sprite_dictionary.inkey, self.map_elems)
         self.ghosts = []
-        self.ghosts.append(self.blinky, self.pinky, self.clyde, self.inkey)
+        self.ghosts.append(self.blinky)
+        self.ghosts.append(self.pinky)
+        self.ghosts.append(self.clyde)
+        self.ghosts.append(self.inkey)
 
         self.map = Map('images/maze.png', (0, 60))
         
@@ -381,8 +384,11 @@ class Game:
         self.clyde = Ghost(self, self.sprite_dictionary.clyde, self.map_elems)
         self.inkey = Ghost(self, self.sprite_dictionary.inkey, self.map_elems)
         self.ghosts = []
-        self.ghosts.append(self.blinky, self.pinky, self.clyde, self.inkey)
-        
+        self.ghosts.append(self.blinky)
+        self.ghosts.append(self.pinky)
+        self.ghosts.append(self.clyde)
+        self.ghosts.append(self.inkey)
+
         self.pacman.rect.centerx = self.map_elems.nodes[65].x
         self.pacman.rect.centery = self.map_elems.nodes[65].y
         self.pacman.adj_node = self.map_elems.nodes[65]
@@ -513,7 +519,10 @@ class Game:
         ###########################################
         #Add Portals later
         ###########################################
-        
+    
+    def initialize_ghosts(self):pass     
+
+
 def main():
     game = Game()
     game.play()

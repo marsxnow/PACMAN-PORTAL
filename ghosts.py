@@ -24,13 +24,13 @@ class Ghost(Char):
         self.speed = 2
 
         sprite_dict = SpriteDict()
-        self.scatter_images = sprite_dict.get_ghost_running_away_sprites()
-        self.eyes_images = sprite_dict.get_ghost_eyes_sprites()
+        self.scatter_images = sprite_dict.get_ghosts_running_away_sprites()
+        self.eyes_images = sprite_dict.get_ghosts_eyes_sprites()
 
 
     def update(self):
         self.handle_animation()
-        if self.game.has_game_started:
+        if self.game.start_game:
             self.calculate_enemy_movement()
 
 
