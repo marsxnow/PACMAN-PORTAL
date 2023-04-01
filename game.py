@@ -388,7 +388,25 @@ class Game:
 
         self.initialize_ghosts()
 
-    
+    def reset_map(self):
+        temp = self.pacman.lives
+        self.reinitialize()
+        self.pacman.lives = temp
+        self.restart_life = False
+        delay = 2000
+        start = pg.time.get_ticks()
+        while abs(start - pg.time.get_ticks()) <= delay:
+            self.handle_events()
+            self.update()
+            self.map_elems.update()
+
+            self.pacman.update()
+            self.user_input_update()
+            for ghost in self.ghosts:
+                ghost.update()
+            
+            pg.display.update()
+        self.start_game = True
 
     def update(self):
         self.screen.fill(self.BG_COLOR)
