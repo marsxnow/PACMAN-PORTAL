@@ -580,3 +580,114 @@ class Elements:
         else:
             org_path_elem.total_distance = 0
         return org_path_elem
+    
+    def get_distance(self, starting_node, to_node):
+
+        return math.sqrt((math.pow(to_node.x - starting_node.x, 2))
+                         + (math.pow(to_node.y - starting_node.y, 2)))
+
+
+    def get_front_of_queue(self, path_elem_open_list):
+        if len(path_elem_open_list) <= 0:
+            return False
+
+        lowest_distance = 1000
+        front_of_queue = path_elem_open_list[0]
+        i = 1
+
+        for path_elem in path_elem_open_list:
+            if path_elem.total_distance < lowest_distance:
+                lowest_distance = path_elem.total_distance
+                front_of_queue = path_elem
+            i += 1
+        return front_of_queue
+    
+    def weight_from_to(self, start_node, to_node):
+        adj_idx = 0
+        for adj_node_idx in start_node.adj:
+            if adj_node_idx == self.nodes.index(to_node):  
+
+                return start_node.adjw[adj_idx]
+
+            adj_idx += 1
+    
+
+    def get_shortest_path(self, starting_node, destination_node):
+
+
+        starting_path_elem = Path(starting_node, None, starting_node, destination_node)
+        starting_path_elem.prev_path_element = starting_path_elem
+
+        open_list = [starting_path_elem]                            # Open list of path element obj's
+        open_list[0] = self.init_path_elem(open_list[0])   # Initialize: Set distance_from_source & total_cost
+
+        closed_list = []    
+
+        
+        while len(open_list) > 0:
+
+           
+            current_path_elem = self.get_front_of_queue(open_list)                             
+            
+            closed_list.append(current_path_elem)
+            open_list.remove(current_path_elem)
+
+            if current_path_elem.node is destination_node:              
+                shortest_path = []              
+                
+                while current_path_elem is not None \
+                        and current_path_elem.node is not current_path_elem.source_node:
+                    shortest_path.append(current_path_elem)
+                    
+                    current_path_elem = current_path_elem.prev_path_element
+
+                shortest_path.reverse()     
+                return shortest_path        
+
+            
+            adj_path_elements = []
+
+            
+            for adj_node_idx in current_path_elem.node.adj:
+
+                
+                if not adj_node_idx == self.nodes.index(current_path_elem.source_node):
+                    path_elem = Path(self.nodes[adj_node_idx], current_path_elem,
+                                            starting_node, destination_node)
+                    self.init_path_elem(path_elem)
+                    adj_path_elements.append(path_elem)
+                    
+            for path_elem in adj_path_elements:
+
+                in_open_list = False
+                in_closed_list = False
+                open_list_pos = 0
+
+                
+                for cl_elem in closed_list:
+
+                    if self.nodes.index(path_elem.node) == self.nodes.index(cl_elem.node):
+                        
+                        in_closed_list = True
+
+               
+                for ol_elem in open_list:
+
+                    if self.nodes.index(path_elem.node) == self.nodes.index(ol_elem.node):
+                        in_open_list = True
+                        open_list_pos = open_list.index(ol_elem)       
+
+                if not in_closed_list:
+
+
+                    if in_open_list:
+
+                        
+                        if path_elem.weight_from_source < open_list[open_list_pos].weight_from_source:
+                            
+                            open_list[open_list.index(open_list[open_list_pos])] = path_elem
+
+                       
+
+                    else:
+                        open_list.append(path_elem)
