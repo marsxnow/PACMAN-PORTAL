@@ -77,4 +77,19 @@ class Ghost(Char):
                 else:
                     self.direction = 'stop'
             self.move(self.direction)
+    
+    def handle_animations(self):
+        if self.go_home:
+            if self.direction == 'left' and self.moving:
+                indic = (4, 5)
+                self.draw(indic=indic)
+                self.game.last_ghost_img = indic[self.game.ghost_img.frame_index()]
+            elif self.direction == 'right' and self.moving:
+                indic = (0, 1)
+                self.draw(indic=indic)
+                self.game.last_ghost_img = indic[self.game.ghost_img.frame_index()]
+            elif self.direction == 'up' and self.moving:
+                indic = (6, 7)
+                self.draw(indic=indic)
+                self.game.last_ghost_img = indic[self.game.ghost_img.frame_index()]
                 
