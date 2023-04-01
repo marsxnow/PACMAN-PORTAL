@@ -179,7 +179,7 @@ class Game:
         if self.starter_pac_rect.right < -200:
             self.starter_right = True
             self.starter_pac_rect.centerx = -48
-            self.starter_blinky_rect = -144
+            self.starter_blinky_rect.centerx = -144
             self.starter_pinky_rect.centerx = -199
             self.starter_clyde_rect.centerx = -254
             self.starter_inkey_rect.centerx = -309
