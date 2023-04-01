@@ -408,6 +408,68 @@ class Game:
             pg.display.update()
         self.start_game = True
 
+    def display_game_over(self):
+        if self.score > self.high_score:
+            self.high_score = self.score
+            with open(path.join(self.file, self.highscore_file), 'w') as f:
+                f.write(str(self.high_score))
+
+        font = pg.font.Font(None, 32)
+        restart_font = pg.font.Font(None, 12)
+        
+        text = font.render('Game Over', True, self.green, self.blue)
+        restart_text = restart_font.render('Press R to restart.', True, self.green, self.blue)
+
+        text_rect = text.get_rect()
+        restart_text_rect = restart_text.get_rect()
+
+        text_rect.center = (self.WIDTH // 2, self.HEIGHT // 2)
+        restart_text_rect.center = (self.WIDTH // 2, (self.HEIGHT // 2) + 50)
+
+        while self.gameover:
+            self.screen.blit(text, text_rect)
+            self.screen.blit(restart_text, restart_text_rect)
+
+            for event in pg.event.get():
+                if event.type == pg.QUIT:
+                    pg.quit()
+                    quit()
+                elif event.type == pg.KEYDOWN:
+                    if event.key == pg.K_r:
+                        self.__init__()
+                        self.start_game = False
+            pg.display.update()
+            self.Clock.tick(15)
+    
+    def un_pause(self):
+        self.game_paused = False
+    
+    def pause(self):
+        self.game_paused = True
+        font = pg.font.Font(None, 32)
+
+        text = font.render('Paused', True, self.green, self.blue)
+
+        text_rect = text.get_rect()
+
+        text_rect.center = (self.WIDTH // 2, self.HEIGHT // 2)
+
+        while self.game_paused:
+            self.screen.blit(text, text_rect)
+            for event in pg.even.get():
+                if event.type == pg.QUIT:
+                    pg.quit()
+                    quit()
+                elif event.type == pg.KEYDOWN:
+                    if event.key == pg.k_p:
+                        self.un_pause()
+            
+            pg.display.update()
+            self.Clock.tick(15)
+    
+    
+
+
     def update(self):
         self.screen.fill(self.BG_COLOR)
         self.screen.blit(self.map.image, self.map.rect)
