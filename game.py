@@ -98,9 +98,9 @@ class Game:
 
         self.pac_life_img = self.sprite_dictionary.pac_life
         self.cherry_img = self.sprite_dictionary.fruits[0]
-        self.sound_img = pg.image.load()
+        self.sound_img = pg.image.load('images/sound_icon.png')
 
-        self.load_HS()
+        self.load_high_score()
 
         pg.mixer.init()
 
