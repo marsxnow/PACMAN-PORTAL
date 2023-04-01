@@ -214,13 +214,101 @@ class Game:
 
 
     def play(self):
-        self.screen.fill(self.BG_COLOR)
-        self.screen.blit(self.map.image, self.map.rect)
-        pg.display.update()
+        pg.mixer.music.stop()
+        while self.start_screen:
+            flip_time = 250
+            self.handle_events()
 
+            font = pg.font.Font(None, 25)
+
+            play_game = font.render('Play', True, self.white)
+            self.play_button_rect = play_game.get_rect()
+            self.play_button_rect.center = ((self.WIDTH // 2), 475)
+
+            get_hs = font.render('High Score', True, self.white)
+            self.highscore_button_rect = get_hs.get_rect()
+            self.highscore_button_rect.center = ((self.WIDTH // 2), 525)
+
+            hs = font.render(str(self.high_score), True, self.white)
+            hs_rect = self.play_button_rect
+
+            back = font.render('Back', True, self.white)
+            self.back_button_rect = back.get_rect()
+            self.back_button_rect.center = ((self.WIDTH //2), 525)
+
+            time = abs(self.last_flip - pg.time.get_ticks())
+            if time >= flip_time:
+                self.show = not self.show
+                self.last_flip = pg.time.get_ticks()
+
+            self.screen.fill(self.BG_COLOR)
+            self.display_intro()
+            if self.show and self.play_button:
+                self.screen.blit(play_game, self.play_button_rect)
+            if self.highscore_button:
+                self.screen.blit(get_hs, self.highscore_button_rect)
+            if self.back_button:
+                self.screen.blit(back, self.back_button_rect)
+            if self.show_highscore:
+                self.screen.blit(hs, hs_rect)
+
+            pg.display.update()
+        
+        #self.start_music.play()
+        start_time = pg.time.get_ticks()
+        while not self.start_game:
+            seconds = (pg.time.get_ticks() - start_time) / 1000
+
+            self.handle_events()
+            self.update()
+
+            self.map_elems.update()
+            self.pacman.update()
+            self.user_input_update()
+            for ghost in self.ghosts:
+                ghost.update()
+            
+            pg.display.update()
+
+            if seconds > 5:
+                self.start_game = True
+                self.start = False
+
+        while not self.win and not self.game_over \
+              and not self.game_paused and not self.restart_life:
+        
+            self.handle_events()
+            self.update()
+            self.map_elems.update()
+
+            self.pacman.update()
+            self.user_input_update()
+            for ghost in self.ghosts:
+                ghost.update()
+            
+            pg.display.update()
+
+            if not self.game_paused:
+                self.Clock.tick(60)
+            
+            if self.gameover:
+                self.display_game_over()
+                #self.start_music.play()
+                self.play()
+            elif self.restart_life:
+                self.restart_elements()
+                self.prev_key = 'stop'
+        if self.win:
+            pg.mixer.music.play(-1)
+            self.display_win()
+
+
+
+ 
     def update(self):
         self.screen.fill(self.BG_COLOR)
         self.screen.blit(self.map.image, self.map.rect)
+
 
 
 def main():
