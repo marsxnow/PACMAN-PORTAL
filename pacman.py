@@ -47,7 +47,7 @@ class Pacman(Char):
         self.elapsed_00 = pg.time.get_ticks()
         self.elapsed_01 = pg.time.get_ticks()
 
-        dying_images = self.game.sprite_dict.get_pacman_dying_sprites()
+        dying_images = self.game.sprite_dictionary.get_pacman_dying_sprites()
         self.dying_start = pg.time.get_ticks()
         self.dying_index = 0
         self.finish = False
