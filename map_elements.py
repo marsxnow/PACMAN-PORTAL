@@ -29,13 +29,13 @@ class Elements:
 
     def update(self):
         for super_node in self.super_nodes:
-            super_node.update(kind=None)
+             super_node.update(type=None)
         
         for pellet in self.pellets:
-            pellet.draw(kind='pe')
+            pellet.draw(type='pe')
         
         for pow_pellet in self.pow_pellets:
-            pow_pellet.draw(kinf='pp')
+            pow_pellet.draw(type='pp')
         
         self.spawn_fruit()
 
@@ -43,22 +43,22 @@ class Elements:
             self.draw_fruit()
     
     def spawn_fruit(self):
-        if (len(self.pellets) + len(self.power_pellets)) == 170:
+        if (len(self.pellets) + len(self.pow_pellets)) == 170:
             self.fruit_index = 0
             self.fruit_exists = True
-        elif (len(self.pellets) + len(self.power_pellets)) == 140 and not self.fruit_exists:
+        elif (len(self.pellets) + len(self.pow_pellets)) == 140 and not self.fruit_exists:
             self.fruit_index = 1
             self.fruit_exists = True
-        elif (len(self.pellets) + len(self.power_pellets)) == 110 and not self.fruit_exists:
+        elif (len(self.pellets) + len(self.pow_pellets)) == 110 and not self.fruit_exists:
             self.fruit_index = 2
             self.fruit_exists = True
-        elif (len(self.pellets) + len(self.power_pellets)) == 80 and not self.fruit_exists:
+        elif (len(self.pellets) + len(self.pow_pellets)) == 80 and not self.fruit_exists:
             self.fruit_index = 3
             self.fruit_exists = True
-        elif (len(self.pellets) + len(self.power_pellets)) == 50 and not self.fruit_exists:
+        elif (len(self.pellets) + len(self.pow_pellets)) == 50 and not self.fruit_exists:
             self.fruit_index = 4
             self.fruit_exists = True
-        elif (len(self.pellets) + len(self.power_pellets)) == 20 and not self.fruit_exists:
+        elif (len(self.pellets) + len(self.pow_pellets)) == 20 and not self.fruit_exists:
             self.fruit_index = 5
             self.fruit_exists = True
     

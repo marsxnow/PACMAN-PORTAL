@@ -23,4 +23,4 @@ class Char(ABC):
         pass
     
     def draw(self, indic):
-        self.screen.blit(self.images[indic[self.game.img_index.frame_index()]], self.rect)
+        self.screen.blit(self.images[indic[self.game.pac_img.frame_index()]], self.rect)

@@ -14,7 +14,7 @@ class Node(Sprite):
         self.exists = True
     
     def update(self, type):
-        self.draw(type = type)
+        self.draw(type=type)
         self.rect = pg.Rect(self.x, self.y, 3, 3)
     
     def draw(self, type):

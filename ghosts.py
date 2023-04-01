@@ -3,13 +3,13 @@ from sprite_dictionary import SpriteDict
 
 class Ghost(Char):
 
-    def __init__(self, game, images, graph):
+    def __init__(self, game, images, map_elements):
 
         super().__init__(game=game, images=images)
         self.moving = False
 
         self.indices = range(2)
-        self.graph = graph
+        self.map = map_elements
 
         self.next_node = self.graph.nodes[25]
         self.adj_node = self.graph.nodes[24]
@@ -48,3 +48,33 @@ class Ghost(Char):
                 self.rect.centery -= self.speed
             elif direction == 'down':
                 self.rect.centery += self.speed
+    
+    def calculate_enemy_movement(self):
+        if len(self.map.get_buffer(self, self.direction)) > 0:
+            collide_point_x = self.map.get_buffer(self, self.direction)[0]
+            collide_point_y = self.map.get_buffer(self, self.direction)[1]
+        else:
+            collide_point_x = 0
+            collide_point_y = 0
+            self.direction = 'stop'
+        
+        if self.direction == 'stop':
+            if self.game.start_game:
+                short_path = self.map.get_shortest_path(self.current_node, self.game.pacman.adj_node)
+
+                if len(short_path) > 0:
+                    self.adj_node = short_path[0].node
+                    self.direction = self.map.directions(self.current_node, self.adj_node)
+        else:
+            if self.rect.collidepoint(collide_point_x, collide_point_y):
+                self.current_node = self.adj_node
+                short_path = self.map.get_shortest_path(self.current_node, self.game.pacman.adj_node)
+
+                if self.current_node is not self.game.pacman.current_node:
+                    if len(short_path) > 0:
+                        self.adj_node = short_path[0].node
+                        self.direction = self.map.direction(self.current_node, self.adj_node)
+                else:
+                    self.direction = 'stop'
+            self.move(self.direction)
+                

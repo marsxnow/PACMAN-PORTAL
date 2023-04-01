@@ -278,6 +278,7 @@ class Pacman(Char):
         self.pow_pel_mode_start = pg.time.get_ticks()
         self.pow_pel_mode = True
     
+
     def manage_op(self):
         now = pg.time.get_ticks()
         if abs(self.pow_pel_mode_start - now) >= self.pow_pel_duration:
@@ -288,9 +289,8 @@ class Pacman(Char):
             self._800_ = False
             self._1600_ = False
 
+
     def get_portal_collision(self):
-
-
         if self.game.portal1.open and self.game.portal2.open:
 
             p1_x = self.game.portal1.current_node.x
@@ -316,7 +316,6 @@ class Pacman(Char):
                 p1_x = ghost.current_node.x
                 p1_y = ghost.current_node.y
 
-                # Check for collision between pac-man and portal1
                 if self.rect.colliderect(ghost.rect) and not ghost.go_home:
 
                     self.lives -= 1
