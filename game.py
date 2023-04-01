@@ -302,9 +302,79 @@ class Game:
             pg.mixer.music.play(-1)
             self.display_win()
 
+    def display_win(self):
+        if self.score > self.high_score:
+            self.high_score = self.score
+            with open(path.join(self.file, self.highscore_file), 'w') as f:
+                f.write(str(self.high_score))
 
+        font = pg.font.Font(None, 32)
+        restart_font = pg.font.Font(None, 12)
 
- 
+        text = font.render('YOU WIN!', True, (205, 204, 0), self.blue)
+        restart_text = restart_font.render('Press R to go again.', True, (205, 204, 0), self.blue)
+
+        text_rext = text.get_rect()
+        restart_text_rect = restart_text.get_rect()
+
+        text_rext.center = (self.WIDTH // 2, self.HEIGHT // 2)
+        restart_text_rect.center = (self.WIDTH // 2, (self.HEIGHT // 2) + 50)
+
+        while self.win:
+
+            self.screen.blit(text, text_rext)
+            self.screen.blit(restart_text, restart_text_rect)
+
+            for event in pg.event.get():
+                if event.type == pg.QUIT:
+                    pg.quit()
+                    quit()
+                elif event.type == pg.KEYDOWN:
+                    if event.key == pg.K_r:
+                        self.__init__()
+                        self.start_game = False
+                        self.play()
+            pg.display.update()
+            self.Clock.tick(15)
+        
+    def user_input_update(self):
+        self.screen.blit(self.map_elems.fruit[self.map_elems.fruit_index], (self.WIDTH - 80, self.HEIGHT -25))
+
+        font = pg.font.Font(None, 16)
+
+        ui_highscore = font.render('HIGH SCORE', True, self.white)
+        high_score_text = font.render(str(self.high_score), True, self.white)
+        one_up = font.render('1UP', True, self.white)
+        current_score_text = font.render(str(self.score), True, self.white)
+
+        text_rect0 = ui_highscore.get_rect()
+        text_rect1 = high_score_text.get_rect()
+        text_rect2 = one_up.get_rect()
+        text_rect3 = current_score_text.get_rect()
+
+        self.screen.blit(ui_highscore, text_rect0)
+        self.screen.blit(high_score_text, text_rect1)
+        self.screen.blit(current_score_text, text_rect3)
+
+        flip_time = 250
+        time = abs(self.last_flip - pg.time.get_ticks())
+        if time >= flip_time:
+            self.show = not self.show
+            self.last_flip = pg.time.get_ticks()
+        
+        if self.show:
+            self.screen.blit(one_up, text_rect2)
+        
+        self.screen.blit(self.sound_img, (self.WIDTH - 50, 20))
+
+        if self.pacman.lives == 3:
+            self.screen.blit(self.pac_life_img, (10, self.HEIGHT - 28))
+            self.screen.blit(self.pac_life_img, (35, self.HEIGHT - 28))
+        elif self.pacman.lives == 2:
+            self.screen.blit(self.pac_life_img, (10, self.HEIGHT - 28))
+
+    def reinitialize(self)
+
     def update(self):
         self.screen.fill(self.BG_COLOR)
         self.screen.blit(self.map.image, self.map.rect)
