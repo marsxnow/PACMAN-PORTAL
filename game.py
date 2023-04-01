@@ -158,8 +158,58 @@ class Game:
                 self.high_score = int(f.read())
             except:
                 self.high_score = 0
-        
+    
+    def display_intro(self):
+        intro = (0, 1)
 
+        font = pg.font.Font(None, 20)
+
+        blinky_copy_rect = copy.deepcopy(self.starter_blinky_rect)
+        blinky_copy_rect.centerx = 170
+        blinky_copy_rect.centery = 245
+
+        blinky_text = font.render("Blinky", True, (255, 0, 0))
+        btext_rect = blinky_text.get_rect()
+        btext_rect.centerx, btext_rect.centery = blinky_copy_rect.left - 50, blinky_copy_rect.centery
+
+        self.screen.blit(self.starter_blinky[intro[self.ghost_img.frame_index()]], blinky_copy_rect)
+        self.screen.blit(blinky_text, btext_rect)
+
+
+        pinky_copy_rect = copy.deepcopy(self.starter_pinky_rect)
+        pinky_copy_rect.centerx = 281
+        pinky_copy_rect.centery = 245
+
+        pinky_text = font.render("Pinky", True, (255, 153, 255))
+        ptext_rect = pinky_text.get_rect()
+        ptext_rect.centerx, ptext_rect.centery = pinky_copy_rect.right + 50, pinky_copy_rect.centery
+
+        self.screen.blit(self.starter_pinky[intro[self.ghost_img.frame_index()]], pinky_copy_rect)
+        self.screen.blit(pinky_text, ptext_rect)
+
+
+        clyde_copy_rect = copy.deepcopy(self.starter_clyde_rect)
+        clyde_copy_rect.centerx = 170 
+        clyde_copy_rect.centery = 320
+
+        clyde_text = font.render("Clyde", True, (255, 204, 0))
+        ctext_rect = clyde_text.get_rect()
+        ctext_rect.centerx, ctext_rect.centery = clyde_copy_rect.left - 50, clyde_copy_rect.centery
+
+        self.screen.blit(self.starter_clyde[intro[self.ghost_img.frame_index()]], clyde_copy_rect)
+        self.screen.blit(clyde_text, ctext_rect)
+
+
+        inkey_copy_rect = copy.deepcopy(self.starter_inkey_rect)
+        inkey_copy_rect.centerx = 281
+        inkey_copy_rect.centery = 245
+
+        inkey_text = font.render("Inkey", True, (255, 0, 0))
+        itext_rect = inkey_text.get_rect()
+        itext_rect.centerx, itext_rect.centery = inkey_copy_rect.right + 50, inkey_copy_rect.centery
+
+        self.screen.blit(self.starter_inkey[intro[self.ghost_img.frame_index()]], inkey_copy_rect)
+        self.screen.blit(inkey_text, itext_rect)
 
 
 
