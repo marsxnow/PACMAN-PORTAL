@@ -54,7 +54,7 @@ class Game:
         self.ghosts.append(self.inkey)
 
         self.map = Map('images/maze.png', (0, 60))
-        
+        self.big_logo = self.sprite_dictionary.get_bigger_logo()
         ##########Find Diff Logo##########
         ##################################
 
@@ -293,6 +293,7 @@ class Game:
             self.screen.fill(self.BG_COLOR)
             self.display_intro()
             self.display_pacman_intro()
+            self.screen.blit(self.big_logo, (0,0))
             if self.show and self.play_button:
                 self.screen.blit(play_game, self.play_button_rect)
             if self.highscore_button:

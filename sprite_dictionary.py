@@ -126,3 +126,9 @@ class SpriteDict:
                         self.sprite_sheet.get_image(x=96, y=120, w=24, h=24),    # apple
                         self.sprite_sheet.get_image(x=120, y=120, w=24, h=24),]
         return fruit_sprite
+
+    @staticmethod
+    def get_bigger_logo():
+        image = pg.image.load('images/menu.png')
+        scaled_image = pg.transform.scale(image, (450, 200))
+        return scaled_image
