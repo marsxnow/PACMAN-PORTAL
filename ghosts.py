@@ -11,8 +11,8 @@ class Ghost(Char):
         self.indices = range(2)
         self.map = map_elements
 
-        self.next_node = self.graph.nodes[25]
-        self.adj_node = self.graph.nodes[24]
+        self.next_node = self.map.nodes[25]
+        self.adj_node = self.map.nodes[24]
 
         self.move_count = 0
         self.current_animation = []
@@ -81,15 +81,51 @@ class Ghost(Char):
     def handle_animations(self):
         if self.go_home:
             if self.direction == 'left' and self.moving:
-                indic = (4, 5)
-                self.draw(indic=indic)
-                self.game.last_ghost_img = indic[self.game.ghost_img.frame_index()]
+                indices = (4, 5)
+                self.draw(indices=indices)
+                self.game.last_ghost_img = indices[self.game.ghost_img.frame_index()]
             elif self.direction == 'right' and self.moving:
-                indic = (0, 1)
-                self.draw(indic=indic)
-                self.game.last_ghost_img = indic[self.game.ghost_img.frame_index()]
+                indices = (0, 1)
+                self.draw(indices=indices)
+                self.game.last_ghost_img = indices[self.game.ghost_img.frame_index()]
+
             elif self.direction == 'up' and self.moving:
-                indic = (6, 7)
-                self.draw(indic=indic)
-                self.game.last_ghost_img = indic[self.game.ghost_img.frame_index()]
+                indices = (6, 7)
+                self.draw(indices=indices)
+                self.game.last_ghost_img = indices[self.game.ghost_img.frame_index()]
+
+            elif self.direction  == 'down' and self.moving:
+                indices = (2,3)
+                self.draw(indices=indices)
+                self.draw.last_ghost_img = indices[self.game.ghost_img.frame_index()]
+        else:
+            if self.direction == 'left' and self.moving:
+                indices = (4, 5)
+                self.draw(indices=indices)
+                self.game.last_ghost_img = indices[self.game.ghost_img.frame_index()]
+            elif self.direction == 'right' and self.moving:
+                indices = (0, 1)
+                self.draw(indices=indices)
+                self.game.last_ghost_img = indices[self.game.ghost_img.frame_index()]
+            elif self.direction == 'up' and self.moving:
+                indices = (6, 7)
+                self.draw(indices=indices)
+                self.game.last_ghost_img = indices[self.game.ghost_img.frame_index()]
+            elif self.direction == 'down' and self.moving:
+                indices = (2, 3)
+                self.draw(indices=indices)
+                self.game.last_ghost_img = indices[self.game.ghost_img.frame_index()]
+            else:
+                if self.game.last_pac_img >= 0 and self.game.last_pac_img < len(self.images):
+                    self.screen.blit(self.images[self.game.last_pac_img], self.rect)
+                else:
+                    self.screen.blit(self.images[0], self.rect)
+
+    def draw(self, indices):
+        if self.game.pacman.pow_pel_mode and not self.go_home:
+            self.screen.blit(self.scatter_images[self.game.ghost_scatter_img.frame_index()], self.rect)
+        elif self.go_home:
+            self.screen.blit(self.eyes_images[indices[self.game.ghost_img.frame()]], self.rect)
+        else:
+            self.screen.blit(self.images[indices[self.game.ghost_imf.frame()]], self.rect)
                 
