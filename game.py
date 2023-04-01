@@ -214,8 +214,8 @@ class Game:
         font = pg.font.Font(None, 20)
 
         blinky_copy_rect = copy.deepcopy(self.starter_blinky_rect)
-        blinky_copy_rect.centerx = 170
-        blinky_copy_rect.centery = 245
+        blinky_copy_rect.centerx, blinky_copy_rect.centery = 170, 245
+        # blinky_copy_rect.centery = 245
 
         blinky_text = font.render("Blinky", True, (255, 0, 0))
         btext_rect = blinky_text.get_rect()
@@ -534,7 +534,7 @@ class Game:
                     self.highscore_button = False
                     self.show_highscore = True
                     self.back_button = True
-                elif self.back_button_rect.collidepoint(x, y):
+                elif self.back_button_rect.collidepoint(x, y) and self.back_button:
                     self.play_button = True
                     self.highscore_button = True
                     self.show_highscore = False
