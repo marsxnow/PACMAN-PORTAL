@@ -25,6 +25,7 @@ class Game:
         pg.display.set_caption('Pac-Man')            
        
         self.Clock = pg.time.Clock()
+        
         self.pac_img = Timer(3)
         self.last_pac_img = self.pac_img.frame_index()
 
@@ -500,7 +501,7 @@ class Game:
                 #     self.portal1.fire()
                 # elif event.key == pg.K_x:
                 #     self.portal2.fire()
-                
+
     
 
 
@@ -509,9 +510,10 @@ class Game:
         self.screen.fill(self.BG_COLOR)
         self.screen.blit(self.map.image, self.map.rect)
 
-
-
-
+        ###########################################
+        #Add Portals later
+        ###########################################
+        
 def main():
     game = Game()
     game.play()
