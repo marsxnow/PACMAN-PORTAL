@@ -107,6 +107,20 @@ class Game:
         self.green = (0, 255, 0)
         self.blue = (0, 0, 128)
 
+
+        pg.mixer.set_num_channels(8)
+        self.voice = pg.mixer.Channel(5)
+        self.portal = pg.mixer.Channel(6)
+
+        # SOUNDS
+        self.beginning_music = pg.mixer.Sound('sounds/pacman_beginning.wav')
+        self.eating_sound = pg.mixer.Sound('sounds/pacman_chomp.wav')
+        self.death_sound = pg.mixer.Sound('sounds/pacman_death.wav')
+        self.eat_ghost_sound = pg.mixer.Sound('sounds/pacman_eatghost.wav')
+
+        # self.portal_shoot = pg.mixer.Sound('sounds/ PORTAL SHOOT SOUND')
+        # self.tp_sound = pg.mixer.Sound('sounds/THRU PORTAL SOUND??')
+
         self.pac_life_img = self.sprite_dictionary.pac_life
         self.cherry_img = self.sprite_dictionary.fruits[0]
         self.sound_img = pg.image.load('images/sound_icon.png')
