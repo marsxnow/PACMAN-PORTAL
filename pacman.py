@@ -83,7 +83,7 @@ class Pacman(Char):
 
         if not self.get_enemy_collision():
             self.handle_animation()
-            self.calculate_player_movement()
+            self.calc_pacman_movement()
             self.eat()
             self.manage_op()
         else:
@@ -312,9 +312,9 @@ class Pacman(Char):
             pass
         else:
             for ghost in self.game.ghosts:
-
-                p1_x = ghost.current_node.x
-                p1_y = ghost.current_node.y
+                if ghost.current_node is not None:
+                    p1_x = ghost.current_node.x
+                    p1_y = ghost.current_node.y
 
                 if self.rect.colliderect(ghost.rect) and not ghost.go_home:
 

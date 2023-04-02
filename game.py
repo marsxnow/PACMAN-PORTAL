@@ -3,6 +3,7 @@ from map import Map
 from timer import Timer, DualTimer 
 from sprite_dictionary import SpriteDict
 from ghosts import Ghost
+from portal import Portal
 from pacman import Pacman
 from map_elements import Elements
 from pygame.sprite import Group
@@ -35,6 +36,11 @@ class Game:
 
         self.sprite_dictionary = SpriteDict()
 
+        portal_sprite = []
+        for sprite in self.sprite_dictionary.portal:
+            portal_sprite.append(pg.transform.scale(sprite, (20, 20)))
+        
+        self.portal_img = Timer(6)
         ###Insert Portal Sauce###
 
         #########################
@@ -43,6 +49,11 @@ class Game:
 
         self.pacman = Pacman(self, self.sprite_dictionary.pacman, self.map_elems)
 
+        self.portal1 = Portal(self, portal_sprite)
+        self.portal2 = Portal(self, portal_sprite)
+        self.portals = [self.portal1, self.portal2]
+
+        
         self.blinky = Ghost(self, self.sprite_dictionary.blinky, self.map_elems)
         self.pinky = Ghost(self, self.sprite_dictionary.pinky, self.map_elems)
         self.clyde = Ghost(self, self.sprite_dictionary.clyde, self.map_elems)
@@ -71,7 +82,7 @@ class Game:
         self.score = 0
         self.high_score = 0
         self.win = False
-        self.prev_key = None
+        self.last_key = None
 
         self.start_screen =  True
 
@@ -325,7 +336,7 @@ class Game:
                 self.start_game = True
                 self.start = False
 
-        while not self.win and not self.game_over \
+        while not self.win and not self.gameover \
               and not self.game_paused and not self.restart_life:
         
             self.handle_events()
@@ -348,7 +359,7 @@ class Game:
                 self.play()
             elif self.restart_life:
                 self.restart_elements()
-                self.prev_key = 'stop'
+                self.last_key = 'stop'
         if self.win:
             pg.mixer.music.play(-1)
             self.display_win()
@@ -550,10 +561,10 @@ class Game:
                     self.last_key = 'up'
                 elif event.key == pg.K_DOWN:
                     self.last_key = 'down'
-                # elif event.key == pg.K_z:
-                #     self.portal1.fire()
-                # elif event.key == pg.K_x:
-                #     self.portal2.fire()
+                elif event.key == pg.K_z:
+                     self.portal1.fire()
+                elif event.key == pg.K_x:
+                     self.portal2.fire()
 
     
 
@@ -563,6 +574,8 @@ class Game:
         self.screen.fill(self.BG_COLOR)
         self.screen.blit(self.map.image, self.map.rect)
 
+        self.portal1.update()
+        self.portal2.update()
         ###########################################
         #Add Portals later
         ###########################################

@@ -116,14 +116,23 @@ class SpriteDict:
                           self.sprite_sheet.get_image(x=264, y=144, w=24, h=24)]
         return number_sprites
 
-    def get_unscaled_portal_sprites(self):pass
+    def get_unscaled_portal_sprites(self):
+        portalsheet = Spritesheet('images/portal.png')
+        portal_images = [portalsheet.get_image(x=364, y=7, w=177, h=176),
+                         portalsheet.get_image(x=553, y=14, w=163, h=163),
+                         portalsheet.get_image(x=7, y=222, w=161, h=159),
+                         portalsheet.get_image(x=193, y=220, w=155, h=158),
+                         portalsheet.get_image(x=373, y=222, w=159, h=158),
+                         portalsheet.get_image(x=553, y=220, w=163, h=163)]
+        
+        return portal_images
 
     def get_food_sprites(self):
         fruit_sprite = [self.sprite_sheet.get_image(x=0, y=120, w=24, h=24),    # cherries
                         self.sprite_sheet.get_image(x=24, y=120, w=24, h=24),    # strawberry
                         self.sprite_sheet.get_image(x=48, y=120, w=24, h=24),    # orange
-                        self.sprite_sheet.get_image(x=72, y=120, w=24, h=24),    # ?????
-                        self.sprite_sheet.get_image(x=96, y=120, w=24, h=24),    # apple
+                        self.sprite_sheet.get_image(x=72, y=120, w=24, h=24),    # 
+                        self.sprite_sheet.get_image(x=96, y=120, w=24, h=24),    #
                         self.sprite_sheet.get_image(x=120, y=120, w=24, h=24),]
         return fruit_sprite
 

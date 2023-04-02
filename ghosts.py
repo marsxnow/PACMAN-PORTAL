@@ -29,7 +29,7 @@ class Ghost(Char):
 
 
     def update(self):
-        self.handle_animation()
+        self.handle_animations()
         if self.game.start_game:
             self.calculate_enemy_movement()
 

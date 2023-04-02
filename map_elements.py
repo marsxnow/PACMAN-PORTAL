@@ -573,7 +573,7 @@ class Elements:
                 node_path_elem = node_path_elem.previous_path
         
         org_path_elem.distance_from_start = distance
-        org_path_elem.distance_to_goal = self.get_distance(org_path_elem ,org_path_elem.to_node)
+        org_path_elem.distance_to_goal = self.get_distance(org_path_elem, org_path_elem.to_node)
 
         if not self.nodes.index(org_path_elem.node) == self.nodes.index(org_path_elem.to_node):
             org_path_elem.total_distance =  org_path_elem.distance_from_start + org_path_elem.distance_to_goal
@@ -612,10 +612,10 @@ class Elements:
             adj_idx += 1
     
 
-    def get_shortest_path(self, starting_node, destination_node):
+    def get_shortest_path(self, starting_node, to_node):
 
 
-        starting_path_elem = Path(starting_node, None, starting_node, destination_node)
+        starting_path_elem = Path(starting_node, None, starting_node, to_node)
         starting_path_elem.prev_path_element = starting_path_elem
 
         open_list = [starting_path_elem]                            # Open list of path element obj's
@@ -632,7 +632,7 @@ class Elements:
             closed_list.append(current_path_elem)
             open_list.remove(current_path_elem)
 
-            if current_path_elem.node is destination_node:              
+            if current_path_elem.node is to_node:              
                 shortest_path = []              
                 
                 while current_path_elem is not None \
@@ -653,7 +653,7 @@ class Elements:
                 
                 if not adj_node_idx == self.nodes.index(current_path_elem.source_node):
                     path_elem = Path(self.nodes[adj_node_idx], current_path_elem,
-                                            starting_node, destination_node)
+                                            starting_node, to_node)
                     self.init_path_elem(path_elem)
                     adj_path_elements.append(path_elem)
                     
