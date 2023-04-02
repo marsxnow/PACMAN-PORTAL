@@ -9,10 +9,10 @@ class Ghost(Char):
         self.moving = False
 
         self.indices = range(2)
-        self.map = map_elements
+        self.map_elems = map_elements
 
-        self.next_node = self.map.nodes[25]
-        self.adj_node = self.map.nodes[24]
+        self.next_node = self.map_elems.nodes[25]
+        self.adj_node = self.map_elems.nodes[24]
 
         self.move_count = 0
         self.current_animation = []
@@ -50,9 +50,9 @@ class Ghost(Char):
                 self.rect.centery += self.speed
     
     def calculate_enemy_movement(self):
-        if len(self.map.get_buffer(self, self.direction)) > 0:
-            collide_point_x = self.map.get_buffer(self, self.direction)[0]
-            collide_point_y = self.map.get_buffer(self, self.direction)[1]
+        if len(self.map_elems.get_buffer(self, self.direction)) > 0:
+            collide_point_x = self.map_elems.get_buffer(self, self.direction)[0]
+            collide_point_y = self.map_elems.get_buffer(self, self.direction)[1]
         else:
             collide_point_x = 0
             collide_point_y = 0
@@ -60,20 +60,20 @@ class Ghost(Char):
         
         if self.direction == 'stop':
             if self.game.start_game:
-                short_path = self.map.get_shortest_path(self.current_node, self.game.pacman.adj_node)
+                short_path = self.map_elems.get_shortest_path(self.current_node, self.game.pacman.adj_node)
 
                 if len(short_path) > 0:
                     self.adj_node = short_path[0].node
-                    self.direction = self.map.directions(self.current_node, self.adj_node)
+                    self.direction = self.map_elems.directions(self.current_node, self.adj_node)
         else:
             if self.rect.collidepoint(collide_point_x, collide_point_y):
                 self.current_node = self.adj_node
-                short_path = self.map.get_shortest_path(self.current_node, self.game.pacman.adj_node)
+                short_path = self.map_elems.get_shortest_path(self.current_node, self.game.pacman.adj_node)
 
                 if self.current_node is not self.game.pacman.current_node:
                     if len(short_path) > 0:
                         self.adj_node = short_path[0].node
-                        self.direction = self.map.direction(self.current_node, self.adj_node)
+                        self.direction = self.map_elems.direction(self.current_node, self.adj_node)
                 else:
                     self.direction = 'stop'
             self.move(self.direction)

@@ -74,6 +74,7 @@ class Game:
         self.pacman.adj_node = self.map_elems.nodes[65]
 
         self.initialize_ghosts()
+
         self.pellets = Group()
 
         for pellet in self.map_elems.pellets:
@@ -209,7 +210,7 @@ class Game:
             self.starter_clyde_rect.centerx = -254
             self.starter_inkey_rect.centerx = -309
         if self.starter_inkey_rect.left >= (self.WIDTH + 200):
-            self.starter_right = False      # go left because too far right
+            self.starter_right = False      
             self.starter_inkey_rect.centerx = self.WIDTH + 48
             self.starter_clyde_rect.centerx = self.WIDTH + 103
             self.starter_pinky_rect.centerx = self.WIDTH + 158
@@ -240,12 +241,13 @@ class Game:
 
         blinky_copy_rect = copy.deepcopy(self.starter_blinky_rect)
         blinky_copy_rect.centerx, blinky_copy_rect.centery = 170, 245
-        # blinky_copy_rect.centery = 245
+        
 
         blinky_text = font.render("Blinky", True, (255, 0, 0))
         btext_rect = blinky_text.get_rect()
         btext_rect.centerx = blinky_copy_rect.left - 50
         btext_rect.centery = blinky_copy_rect.centery
+
         self.screen.blit(self.starter_blinky[intro[self.ghost_img.frame_index()]], blinky_copy_rect)
         self.screen.blit(blinky_text, btext_rect)
 
@@ -336,17 +338,20 @@ class Game:
             seconds = (pg.time.get_ticks() - start_time) / 1000
 
             self.handle_events()
+
             self.update()
 
             self.map_elems.update()
+
             self.pacman.update()
+
             self.user_input_update()
             for ghost in self.ghosts:
                 ghost.update()
             
             pg.display.update()
 
-            if seconds > 5:
+            if seconds > 5.5:
                 self.start_game = True
                 self.start = False
 
@@ -355,10 +360,12 @@ class Game:
         
             self.handle_events()
             self.update()
+
             self.map_elems.update()
 
             self.pacman.update()
             self.user_input_update()
+
             for ghost in self.ghosts:
                 ghost.update()
             
@@ -414,7 +421,7 @@ class Game:
             self.Clock.tick(15)
         
     def user_input_update(self):
-        self.screen.blit(self.map_elems.fruit[self.map_elems.fruit_index], (self.WIDTH - 80, self.HEIGHT -25))
+        self.screen.blit(self.map_elems.fruit[self.map_elems.fruit_index], (self.WIDTH - 80, self.HEIGHT -28))
 
         font = pg.font.Font(None, 16)
 
@@ -427,6 +434,11 @@ class Game:
         text_rect1 = high_score_text.get_rect()
         text_rect2 = one_up.get_rect()
         text_rect3 = current_score_text.get_rect()
+
+        text_rect0.center = ((self.WIDTH // 2) - 5, 20)
+        text_rect1.center = ((self.WIDTH // 2) - 5, 40)
+        text_rect2.center = ((self.WIDTH // 2) + 100, 20)
+        text_rect3.center = ((self.white // 2) + 100, 40)
 
         self.screen.blit(ui_highscore, text_rect0)
         self.screen.blit(high_score_text, text_rect1)
