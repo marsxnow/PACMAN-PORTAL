@@ -330,7 +330,7 @@ class Game:
 
             pg.display.update()
         
-        #self.start_music.play()
+        self.beginning_music.play()
         start_time = pg.time.get_ticks()
         while not self.start_game:
             seconds = (pg.time.get_ticks() - start_time) / 1000
@@ -369,7 +369,7 @@ class Game:
             
             if self.gameover:
                 self.display_game_over()
-                #self.start_music.play()
+                self.beginning_music.play()
                 self.play()
             elif self.restart_life:
                 self.restart_elements()

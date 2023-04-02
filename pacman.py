@@ -249,7 +249,7 @@ class Pacman(Char):
                     ghost.go_home = True
                     self.enemy_consum += 1
                     self.game.score += 200 * self.enemy_consum
-                    self.game.eat_ghost_sound.set_volume(.99)
+                    self.game.eat_ghost_sound.set_volume(.7)
                     self.game.voice.play(self.game.eat_ghost_sound)
                     if self.enemy_consum == 1:
                         self._200_ = True
