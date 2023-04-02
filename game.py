@@ -438,7 +438,7 @@ class Game:
         text_rect0.center = ((self.WIDTH // 2) - 5, 20)
         text_rect1.center = ((self.WIDTH // 2) - 5, 40)
         text_rect2.center = ((self.WIDTH // 2) + 100, 20)
-        text_rect3.center = ((self.white // 2) + 100, 40)
+        text_rect3.center = ((self.WIDTH // 2) + 100, 40)
 
         self.screen.blit(ui_highscore, text_rect0)
         self.screen.blit(high_score_text, text_rect1)
