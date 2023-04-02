@@ -582,7 +582,6 @@ class Elements:
         return org_path_elem
     
     def get_distance(self, starting_node, to_node):
-
         return math.sqrt((math.pow(to_node.x - starting_node.x, 2))
                          + (math.pow(to_node.y - starting_node.y, 2)))
 
