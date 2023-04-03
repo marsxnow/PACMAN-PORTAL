@@ -239,7 +239,7 @@ class Game:
     def display_intro(self):
         intro = (0, 1)
 
-        font = pg.font.Font(None, 20)
+        font = pg.font.Font('bjork.ttf', 30)
 
         blinky_copy_rect = copy.deepcopy(self.starter_blinky_rect)
         blinky_copy_rect.centerx, blinky_copy_rect.centery = 170, 245
@@ -297,7 +297,7 @@ class Game:
             flip_time = 250
             self.handle_events()
 
-            font = pg.font.Font(None, 25)
+            font = pg.font.Font('bjork.ttf', 35)
 
             play_game = font.render('Play', True, self.white)
             self.play_button_rect = play_game.get_rect()
@@ -393,8 +393,8 @@ class Game:
             with open(path.join(self.file, self.highscore_file), 'w') as f:
                 f.write(str(self.high_score))
 
-        font = pg.font.Font(None, 32)
-        restart_font = pg.font.Font(None, 12)
+        font = pg.font.Font('bjork.ttf', 32)
+        restart_font = pg.font.Font('bjork.ttf', 20)
 
         text = font.render('YOU WIN!', True, (205, 204, 0), self.blue)
         restart_text = restart_font.render('Press R to go again.', True, (205, 204, 0), self.blue)
@@ -424,12 +424,12 @@ class Game:
         
     def user_input_update(self):
         self.screen.blit(self.map_elems.fruit[self.map_elems.fruit_index], (self.WIDTH - 80, self.HEIGHT -28))
-
+        font_two = pg.font.Font('bjork.ttf', 16)
         font = pg.font.Font(None, 16)
 
-        ui_highscore = font.render('HIGH SCORE', True, self.white)
+        ui_highscore = font_two.render('HIGH SCORE', True, self.white)
         high_score_text = font.render(str(self.high_score), True, self.white)
-        one_up = font.render('1UP', True, self.white)
+        one_up = font_two.render('Score', True, self.white)
         current_score_text = font.render(str(self.score), True, self.white)
 
         text_rect0 = ui_highscore.get_rect()
@@ -455,7 +455,6 @@ class Game:
         if self.show:
             self.screen.blit(one_up, text_rect2)
         
-        self.screen.blit(self.sound_img, (self.WIDTH - 50, 20))
 
         if self.pacman.lives == 3:
             self.screen.blit(self.pac_life_img, (10, self.HEIGHT - 28))
@@ -507,8 +506,8 @@ class Game:
             with open(path.join(self.file, self.highscore_file), 'w') as f:
                 f.write(str(self.high_score))
 
-        font = pg.font.Font(None, 32)
-        restart_font = pg.font.Font(None, 12)
+        font = pg.font.Font('bjork.ttf', 42)
+        restart_font = pg.font.Font('bjork.ttf', 22)
         
         text = font.render('Game Over', True, self.green, self.blue)
         restart_text = restart_font.render('Press R to restart.', True, self.green, self.blue)
@@ -539,7 +538,7 @@ class Game:
     
     def pause(self):
         self.game_paused = True
-        font = pg.font.Font(None, 45)
+        font = pg.font.Font('bjork.ttf', 45)
 
         text = font.render('Paused', True, self.green, self.blue)
 
