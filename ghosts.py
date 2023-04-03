@@ -60,20 +60,20 @@ class Ghost(Char):
         
         if self.direction == 'stop':
             if self.game.start_game:
-                short_path = self.map_elems.get_shortest_path(self.current_node, self.game.pacman.adj_node)
+                shortest_path = self.map_elems.get_shortest_path(self.current_node, self.game.pacman.adj_node)
 
-                if len(short_path) > 0:
-                    self.adj_node = short_path[0].node
+                if len(shortest_path) > 0:
+                    self.adj_node = shortest_path[0].node
                     self.direction = self.map_elems.directions(self.current_node, self.adj_node)
         else:
             if self.rect.collidepoint(collide_point_x, collide_point_y):
                 self.current_node = self.adj_node
-                short_path = self.map_elems.get_shortest_path(self.current_node, self.game.pacman.adj_node)
+                shortest_path = self.map_elems.get_shortest_path(self.current_node, self.game.pacman.adj_node)
 
                 if self.current_node is not self.game.pacman.current_node:
-                    if len(short_path) > 0:
-                        self.adj_node = short_path[0].node
-                        self.direction = self.map_elems.direction(self.current_node, self.adj_node)
+                    if len(shortest_path) > 0:
+                        self.adj_node = shortest_path[0].node
+                        self.direction = self.map_elems.directions(self.current_node, self.adj_node)
                 else:
                     self.direction = 'stop'
             self.move(self.direction)
@@ -95,9 +95,9 @@ class Ghost(Char):
                 self.game.last_ghost_img = indices[self.game.ghost_img.frame_index()]
 
             elif self.direction  == 'down' and self.moving:
-                indices = (2,3)
+                indices = (2, 3)
                 self.draw(indices=indices)
-                self.draw.last_ghost_img = indices[self.game.ghost_img.frame_index()]
+                self.game.last_ghost_img = indices[self.game.ghost_img.frame_index()]
         else:
             if self.direction == 'left' and self.moving:
                 indices = (4, 5)
@@ -125,7 +125,7 @@ class Ghost(Char):
         if self.game.pacman.pow_pel_mode and not self.go_home:
             self.screen.blit(self.scatter_images[self.game.ghost_scatter_img.frame_index()], self.rect)
         elif self.go_home:
-            self.screen.blit(self.eyes_images[indices[self.game.ghost_img.frame()]], self.rect)
+            self.screen.blit(self.eyes_images[indices[self.game.ghost_img.frame_index()]], self.rect)
         else:
-            self.screen.blit(self.images[indices[self.game.ghost_imf.frame()]], self.rect)
+            self.screen.blit(self.images[indices[self.game.ghost_img.frame_index()]], self.rect)
                 

@@ -13,7 +13,9 @@ class Char(ABC):
         self.speed = 2.5
         self.direcetion = None
         self.graph = None
+
         self.current_node = None
+        self.next_node = None
         self.adj_node = None
 
         self.is_alive = True 
@@ -22,5 +24,5 @@ class Char(ABC):
     def move(self, direction):
         pass
     
-    def draw(self, indic):
-        self.screen.blit(self.images[indic[self.game.pac_img.frame_index()]], self.rect)
+    def draw(self, indices):
+        self.screen.blit(self.images[indices[self.game.pac_img.frame_index()]], self.rect)

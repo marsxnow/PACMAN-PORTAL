@@ -511,18 +511,18 @@ class Elements:
         done = False
         found = False
 
-        current = node
+        current_node = node
         matching_nodes = []
 
         while not done:
-            for adj_node in current.adj:
-                if direction == 'left' and self.nodes[adj_node].x < current.x and self.nodes[adj_node].y == current.y\
-                or direction == 'right' and self.nodes[adj_node].x > current.x and self.nodes[adj_node].y == current.y\
-                or direction == 'up' and self.nodes[adj_node].y < current.y and self.nodes[adj_node].x == current.x\
-                or direction == 'down' and self.nodes[adj_node].y > current.y and self.nodes[adj_node].x == current.x:
+            for adj_node in current_node.adj:
+                if direction == 'left' and self.nodes[adj_node].x < current_node.x and self.nodes[adj_node].y == current_node.y\
+                or direction == 'right' and self.nodes[adj_node].x > current_node.x and self.nodes[adj_node].y == current_node.y\
+                or direction == 'up' and self.nodes[adj_node].y < current_node.y and self.nodes[adj_node].x == current_node.x\
+                or direction == 'down' and self.nodes[adj_node].y > current_node.y and self.nodes[adj_node].x == current_node.x:
 
-                    current = self.nodes[adj_node]
-                    matching_nodes.append(current)
+                    current_node = self.nodes[adj_node]
+                    matching_nodes.append(current_node)
                     found = True
 
             if not found:
@@ -556,7 +556,7 @@ class Elements:
         distance = 0
 
         if node_path_elem.node is not node_path_elem.start_node:
-            while node_path_elem.nodes is not node_path_elem.start_node:
+            while node_path_elem.node is not node_path_elem.start_node:
                 i = 0
                 found = False
 
@@ -573,7 +573,7 @@ class Elements:
                 node_path_elem = node_path_elem.previous_path
         
         org_path_elem.distance_from_start = distance
-        org_path_elem.distance_to_goal = self.get_distance(org_path_elem, org_path_elem.to_node)
+        org_path_elem.distance_to_goal = self.get_distance(org_path_elem.node, org_path_elem.to_node)
 
         if not self.nodes.index(org_path_elem.node) == self.nodes.index(org_path_elem.to_node):
             org_path_elem.total_distance =  org_path_elem.distance_from_start + org_path_elem.distance_to_goal
@@ -615,7 +615,7 @@ class Elements:
 
 
         starting_path_elem = Path(starting_node, None, starting_node, to_node)
-        starting_path_elem.prev_path_element = starting_path_elem
+        starting_path_elem.previous_path = starting_path_elem
 
         open_list = [starting_path_elem]                            # Open list of path element obj's
         open_list[0] = self.init_path_elem(open_list[0])   # Initialize: Set distance_from_source & total_cost
@@ -635,10 +635,10 @@ class Elements:
                 shortest_path = []              
                 
                 while current_path_elem is not None \
-                        and current_path_elem.node is not current_path_elem.source_node:
+                        and current_path_elem.node is not current_path_elem.start_node:
                     shortest_path.append(current_path_elem)
                     
-                    current_path_elem = current_path_elem.prev_path_element
+                    current_path_elem = current_path_elem.previous_path
 
                 shortest_path.reverse()     
                 return shortest_path        
@@ -650,7 +650,7 @@ class Elements:
             for adj_node_idx in current_path_elem.node.adj:
 
                 
-                if not adj_node_idx == self.nodes.index(current_path_elem.source_node):
+                if not adj_node_idx == self.nodes.index(current_path_elem.start_node):
                     path_elem = Path(self.nodes[adj_node_idx], current_path_elem,
                                             starting_node, to_node)
                     self.init_path_elem(path_elem)
@@ -682,7 +682,7 @@ class Elements:
                     if in_open_list:
 
                         
-                        if path_elem.weight_from_source < open_list[open_list_pos].weight_from_source:
+                        if path_elem.distance_from_start < open_list[open_list_pos].distance_from_start:
                             
                             open_list[open_list.index(open_list[open_list_pos])] = path_elem
 

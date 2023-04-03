@@ -107,6 +107,8 @@ class Game:
         self.white = (255, 255, 255)
         self.green = (0, 255, 0)
         self.blue = (0, 0, 128)
+        
+        pg.mixer.init()
 
 
         pg.mixer.set_num_channels(8)
@@ -118,17 +120,17 @@ class Game:
         self.eating_sound = pg.mixer.Sound('sounds/pacman_chomp.wav')
         self.death_sound = pg.mixer.Sound('sounds/pacman_death.wav')
         self.eat_ghost_sound = pg.mixer.Sound('sounds/pacman_eatghost.wav')
+        self.eat_fruit_sound = pg.mixer.Sound('sounds/pacman_eatfruit.wav')
 
-        # self.portal_shoot = pg.mixer.Sound('sounds/ PORTAL SHOOT SOUND')
-        # self.tp_sound = pg.mixer.Sound('sounds/THRU PORTAL SOUND??')
+
+        #self.portal_shoot = pg.mixer.Sound('sounds/ PORTAL SHOOT SOUND')
+        #self.tp_sound = pg.mixer.Sound('sounds/THRU PORTAL SOUND??')
 
         self.pac_life_img = self.sprite_dictionary.pac_life
         self.cherry_img = self.sprite_dictionary.fruits[0]
         self.sound_img = pg.image.load('images/sound_icon.png')
 
         self.load_high_score()
-
-        pg.mixer.init()
 
         pacman_imgs = self.sprite_dictionary.get_pacman_sprites()
         self.starter_pac = []
@@ -382,7 +384,7 @@ class Game:
                 self.restart_elements()
                 self.last_key = 'stop'
         if self.win:
-            pg.mixer.music.play(-1)
+            # pg.mixer.music.play(-1)
             self.display_win()
 
     def display_win(self):
@@ -479,7 +481,7 @@ class Game:
 
         self.initialize_ghosts()
 
-    def reset_map(self):
+    def restart_elements(self):
         temp = self.pacman.lives
         self.reinitialize()
         self.pacman.lives = temp
@@ -537,7 +539,7 @@ class Game:
     
     def pause(self):
         self.game_paused = True
-        font = pg.font.Font(None, 32)
+        font = pg.font.Font(None, 45)
 
         text = font.render('Paused', True, self.green, self.blue)
 
@@ -547,12 +549,12 @@ class Game:
 
         while self.game_paused:
             self.screen.blit(text, text_rect)
-            for event in pg.even.get():
+            for event in pg.event.get():
                 if event.type == pg.QUIT:
                     pg.quit()
                     quit()
                 elif event.type == pg.KEYDOWN:
-                    if event.key == pg.k_p:
+                    if event.key == pg.K_p:
                         self.un_pause()
             
             pg.display.update()
@@ -566,7 +568,7 @@ class Game:
                 x, y = event.pos
                 if self.play_button_rect.collidepoint(x, y):
                     self.start_screen = False
-                elif self.highscore_button_rect.collidepoint(x, y):
+                elif self.highscore_button_rect.collidepoint(x, y) and self.highscore_button:
                     self.play_button = False
                     self.highscore_button = False
                     self.show_highscore = True
@@ -587,9 +589,9 @@ class Game:
                     self.last_key = 'up'
                 elif event.key == pg.K_DOWN:
                     self.last_key = 'down'
-                elif event.key == pg.K_z:
+                elif event.key == pg.K_q:
                      self.portal1.fire()
-                elif event.key == pg.K_x:
+                elif event.key == pg.K_e:
                      self.portal2.fire()
 
     
@@ -606,7 +608,50 @@ class Game:
         #Add Portals later
         ###########################################
     
-    def initialize_ghosts(self):pass     
+    def initialize_ghosts(self):
+        self.blinky.rect.centerx = self.map_elems.nodes[69].x
+        self.blinky.rect.centery = self.map_elems.nodes[69].y 
+        self.blinky.current_node = self.map_elems.nodes[69]
+        self.blinky.adj_node = self.map_elems.nodes[24]
+
+        shortest_path = self.map_elems.get_shortest_path(self.blinky.current_node, self.pacman.current_node)
+
+        if len(shortest_path) > 0:
+            self.blinky.adj_node = shortest_path[0].node
+            self.blinky.next_node = shortest_path[len(shortest_path) - 1].node
+        
+        self.pinky.rect.centerx = self.map_elems.nodes[67].x
+        self.pinky.rect.centery = self.map_elems.nodes[67].y
+        self.pinky.current_node = self.map_elems.nodes[67]
+        self.pinky.adj_node = self.map_elems.nodes[68]
+
+        shortest_path = self.map_elems.get_shortest_path(self.pinky.current_node, self.pacman.current_node)
+
+        if len(shortest_path) > 0:
+            self.pinky.adj_node = shortest_path[0].node
+            self.pinky.next_node = shortest_path[len(shortest_path) - 1].node
+
+        self.clyde.rect.centerx = self.map_elems.nodes[68].x
+        self.clyde.rect.centery = self.map_elems.nodes[68].y
+        self.clyde.current_node = self.map_elems.nodes[68]
+        self.clyde.adj_node = self.map_elems.nodes[67]
+
+        shortest_path = self.map_elems.get_shortest_path(self.clyde.current_node, self.pacman.current_node)
+
+        if len(shortest_path):
+            self.clyde.adj_node = shortest_path[0].node
+            self.clyde.next_node = shortest_path[len(shortest_path) - 1].node
+        
+        self.inkey.rect.centerx = self.map_elems.nodes[66].x
+        self.inkey.rect.centery = self.map_elems.nodes[66].y
+        self.inkey.current_node = self.map_elems.nodes[66]
+        self.inkey.adj_node = self.map_elems.nodes[67]
+
+        shortest_path = self.map_elems.get_shortest_path(self.inkey.current_node, self.pacman.current_node)
+        
+        if len(shortest_path) > 0:
+            self.inkey.adj_node = shortest_path[0].node
+            self.inkey.next_node = shortest_path[len(shortest_path) - 1].node
 
 
 def main():

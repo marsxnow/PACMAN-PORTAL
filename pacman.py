@@ -110,7 +110,7 @@ class Pacman(Char):
             self.game.handle_events()  # Get user input
             self.game.update()  # Update this (Game) instance
 
-            self.graph.update() 
+            self.map_elem.update() 
 
             self.draw_death()
             self.game.user_input_update()
@@ -128,7 +128,7 @@ class Pacman(Char):
             self.game.handle_events()  # Get user input
             self.game.update()  # Update this (Game) instance
 
-            self.graph.update()  
+            self.map_elem.update()  
 
             self.game.user_input_update()
             for ghost in self.game.ghosts:  # Update (Enemy) instances
@@ -149,7 +149,7 @@ class Pacman(Char):
         if self.game.start_game:
 
             if(self.direction is None or self.direction == 'stop') \
-            and self.map_elem.valid_move(self.current_node, self.game.last_key):
+                    and self.map_elem.valid_move(self.current_node, self.game.last_key):
                 
                 adj_list = self.map_elem.adj_path(self.current_node, self.game.last_key)
                 self.adj_node = adj_list[0]
@@ -240,7 +240,7 @@ class Pacman(Char):
                 self.map_elem.pow_pellets.remove(pow_pellet)
                 self.pp()
 
-                self.game.eating_sound.set_vloume(.4)
+                self.game.eating_sound.set_volume(.4)
                 self.game.voice.play(self.game.eating_sound)
 
         if self.pow_pel_mode:
@@ -271,8 +271,8 @@ class Pacman(Char):
             self.map_elem.fruit_exists = False
             self.game.score += 100 * (self.map_elem.fruit_index + 1)
 
-            self.game.eating_sound.set_volume(.4)
-            self.game.voice.play(self.game.eating_sound)
+            self.game.eat_fruit_sound.set_volume(.4)
+            self.game.voice.play(self.game.eat_fruit_sound)
 
     def pp(self):
         self.pow_pel_mode_start = pg.time.get_ticks()
@@ -323,15 +323,15 @@ class Pacman(Char):
                     if not self.game.restart_life:
                         return True
     
-    def teleport(self, destination_node):
+    def teleport(self, to_node):
         now = pg.time.get_ticks()
 
-        if abs(self.last_tp - now) >= self.cd:      # if cd time is over
+        if abs(self.last_tp - now) >= self.port_cool_down:      # if cd time is over
 
             # Set current node to the node pac-man collided with
-            self.current_node = destination_node
-            self.rect.centerx = destination_node.x
-            self.rect.centery = destination_node.y
+            self.current_node = to_node
+            self.rect.centerx = to_node.x
+            self.rect.centery = to_node.y
 
             # Valid move in the requested direction
             if self.map_elem.valid_move(self.current_node, self.game.last_key):
@@ -339,8 +339,8 @@ class Pacman(Char):
                 adj_list = self.map_elem.adj_path(self.current_node, self.game.last_key)
                 self.adj_node = adj_list[0]
                 self.next_node = adj_list[len(adj_list) - 1]
-                self.game.tp_sound.set_volume(.99)
-                self.game.portal.play(self.game.tp_sound)
+                # self.game.tp_sound.set_volume(.99)
+                # self.game.portal.play(self.game.tp_sound)
 
             # Requested movement was invalid
             # --> Same direction movement is valid
@@ -381,13 +381,13 @@ class Pacman(Char):
 
     def draw_death(self):
         if self.game.last_key == 'left':
-            self.screen.blit(self.dying_L[self.dying_index], self.rect)
+            self.screen.blit(self.dying_left[self.dying_index], self.rect)
         elif self.game.last_key == 'right' or self.game.last_key == 'stop':
-            self.screen.blit(self.dying_R[self.dying_index], self.rect)
+            self.screen.blit(self.dying_right[self.dying_index], self.rect)
         elif self.game.last_key == 'up':
-            self.screen.blit(self.dying_U[self.dying_index], self.rect)
+            self.screen.blit(self.dying_up[self.dying_index], self.rect)
         elif self.game.last_key == 'down':
-            self.screen.blit(self.dying_D[self.dying_index], self.rect)
+            self.screen.blit(self.dying_down[self.dying_index], self.rect)
 
         if self.dying_index == 13:  # dying animation is finished -- reset
             self.dying_index = 0
