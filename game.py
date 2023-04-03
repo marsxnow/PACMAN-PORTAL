@@ -298,6 +298,7 @@ class Game:
             self.handle_events()
 
             font = pg.font.Font('bjork.ttf', 35)
+            font_2 = pg.font.Font(None, 35) 
 
             play_game = font.render('Play', True, self.white)
             self.play_button_rect = play_game.get_rect()
@@ -307,7 +308,7 @@ class Game:
             self.highscore_button_rect = get_hs.get_rect()
             self.highscore_button_rect.center = ((self.WIDTH // 2), 525)
 
-            hs = font.render(str(self.high_score), True, self.white)
+            hs = font_2.render(str(self.high_score), True, self.white)
             hs_rect = self.play_button_rect
 
             back = font.render('Back', True, self.white)
